@@ -1,7 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:budget_app/constant.dart';
+import 'package:budget_app/cubits/addClientCubit/addClient_cubit.dart';
+import 'package:budget_app/cubits/appCubit/app_cubit.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ClientsPage extends StatelessWidget {
@@ -80,11 +83,13 @@ class ClientsPage extends StatelessWidget {
                           childAspectRatio: 1,
                         ),
                         children: List.generate(
-                          7,
+                          1,
                           (index) {
-                            if (index == 6) {
+                            if (index == 0) {
                               return InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  context.read<AppCubit>().goToAddClientPage();
+                                },
                                 child: DottedBorder(
                                   color: Colors.black,
                                   strokeWidth: 1,

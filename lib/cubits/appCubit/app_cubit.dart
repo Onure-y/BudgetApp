@@ -43,7 +43,15 @@ class AppCubit extends Cubit<AppState> {
     emit(AddExpenseCategoryPageState());
   }
 
+  void goToAddClientPage() {
+    emit(AddClientPageState());
+  }
+
   void goBacktoCategoryPage() {
     emit(IncomeCategoryPageState());
+  }
+
+  void goBackToClientPage() {
+    emit(ClientPageState());
   }
 }

@@ -1,4 +1,5 @@
 import 'package:budget_app/cubits/addCategoryCubit/addCategory_cubit.dart';
+import 'package:budget_app/cubits/addClientCubit/addClient_cubit.dart';
 import 'package:budget_app/cubits/appCubit/app_cubit.dart';
 import 'package:budget_app/cubits/navigationCubit/navigation_cubit.dart';
 import 'package:budget_app/views/home_view.dart';
@@ -21,9 +22,6 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => NavigationCubit(),
-        ),
-        BlocProvider(
-          create: (context) => AddCategoryCubit(),
         ),
       ],
       child: MaterialApp(

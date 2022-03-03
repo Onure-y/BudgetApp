@@ -5,6 +5,7 @@ import 'package:budget_app/cubits/appCubit/app_cubit.dart';
 import 'package:budget_app/cubits/appCubit/app_cubit_state.dart';
 import 'package:budget_app/cubits/navigationCubit/navigation_cubit.dart';
 import 'package:budget_app/cubits/navigationCubit/navigation_cubit_state.dart';
+import 'package:budget_app/views/addClient_view.dart';
 import 'package:budget_app/views/addExpenseCaegory_view.dart';
 import 'package:budget_app/views/addIncomeCategory_view.dart';
 import 'package:budget_app/views/allMovements_view.dart';
@@ -154,6 +155,9 @@ class HomePage extends StatelessWidget {
               }
               if (state is AddExpenseCategoryPageState) {
                 return const AddExpenseCategoryPage();
+              }
+              if (state is AddClientPageState) {
+                return const AddClientPage();
               } else {
                 return const SizedBox(child: Center(child: Text('empty Page')));
               }

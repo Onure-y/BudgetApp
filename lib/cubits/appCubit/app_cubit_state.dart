@@ -51,3 +51,8 @@ class AddExpenseCategoryPageState extends AppState {
   @override
   List<Object?> get props => [];
 }
+
+class AddClientPageState extends AppState {
+  @override
+  List<Object?> get props => [];
+}
