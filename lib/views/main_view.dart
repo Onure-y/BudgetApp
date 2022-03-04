@@ -263,7 +263,7 @@ class MainPage extends StatelessWidget {
                                                         .spaceBetween,
                                                 children: [
                                                   AutoSizeText(
-                                                    'Gelir',
+                                                    'Butce',
                                                     minFontSize: 24,
                                                     style:
                                                         secondryMediumTextStyle,
