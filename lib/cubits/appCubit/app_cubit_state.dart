@@ -56,3 +56,8 @@ class AddClientPageState extends AppState {
   @override
   List<Object?> get props => [];
 }
+
+class SettingsPageState extends AppState {
+  @override
+  List<Object?> get props => [];
+}

@@ -9,6 +9,8 @@ const Color lightColor = Color(0xffF0F1F6);
 const Color buttonColor = Color(0xffE5E5E5);
 const Color backgroundColor = Color(0xfffafafa);
 
+const Color bluredBackgroundColor = Color.fromRGBO(42, 36, 56, .9);
+
 const LinearGradient charsGradientColor = LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,

@@ -3,6 +3,7 @@ import 'package:budget_app/constant.dart';
 import 'package:budget_app/cubits/addCategoryCubit/addCategory_state.dart';
 import 'package:budget_app/cubits/addCategoryCubit/addCategory_cubit.dart';
 import 'package:budget_app/cubits/appCubit/app_cubit.dart';
+import 'package:budget_app/helper/icon_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -70,11 +71,8 @@ class AddIncomeCategoryPage extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Icon(
-                                Icons.person,
-                                color: Colors.white,
-                                size: 64,
-                              ),
+                              Icon(IconHelperPackage.icons[state.iconIndex],
+                                  size: 48, color: Colors.white),
                               const SizedBox(
                                 height: 10,
                               ),
@@ -99,7 +97,7 @@ class AddIncomeCategoryPage extends StatelessWidget {
                                       context: context,
                                       builder: (BuildContext context) {
                                         return AlertDialog(
-                                          title: const Text('Pick a color!'),
+                                          title: const Text('Renk Sec!'),
                                           content: SingleChildScrollView(
                                             child: ColorPicker(
                                               pickerColor: state.pickerColor,
@@ -128,17 +126,109 @@ class AddIncomeCategoryPage extends StatelessWidget {
                             const SizedBox(
                               width: 30.0,
                             ),
-                            ElevatedButton(
-                              onPressed: () {},
-                              child: AutoSizeText(
-                                'Icon Degistir',
-                                style: secondryNormalTextStyle,
-                                minFontSize: 18,
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                padding: const EdgeInsets.all(15.0),
-                                primary: buttonColor,
-                              ),
+                            Builder(
+                              builder: (newContext) {
+                                return ElevatedButton(
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: const Center(
+                                              child: Text('Icon sec')),
+                                          content: Container(
+                                            width: 500,
+                                            height: 500,
+                                            child: GridView.builder(
+                                              itemCount: IconHelperPackage
+                                                  .icons.length,
+                                              gridDelegate:
+                                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                                crossAxisCount: 4,
+                                              ),
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                      int index) {
+                                                return InkWell(
+                                                  onTap: () {},
+                                                  child: Icon(IconHelperPackage
+                                                      .icons[index]),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              style: TextButton.styleFrom(
+                                                backgroundColor: expenseColor,
+                                              ),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text(
+                                                'Iptal',
+                                                style: primaryNormalTextStyle,
+                                              ),
+                                            ),
+                                            TextButton(
+                                              style: TextButton.styleFrom(
+                                                  backgroundColor: incomeColor),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text(
+                                                'Tamam',
+                                                style: primaryNormalTextStyle,
+                                              ),
+                                            ),
+                                            /* ElevatedButton(
+                                              onPressed: () {},
+                                              child: AutoSizeText(
+                                                'Iptal Et',
+                                                style: primaryNormalTextStyle,
+                                                minFontSize: 18,
+                                              ),
+                                              style: ElevatedButton.styleFrom(
+                                                primary: expenseColor,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0),
+                                                ),
+                                              ),
+                                            ),
+                                            ElevatedButton(
+                                              onPressed: () {},
+                                              child: AutoSizeText(
+                                                'Tamam',
+                                                style: primaryNormalTextStyle,
+                                                minFontSize: 18,
+                                              ),
+                                              style: ElevatedButton.styleFrom(
+                                                primary: incomeColor,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0),
+                                                ),
+                                              ),
+                                            ), */
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: AutoSizeText(
+                                    'Icon Degistir',
+                                    style: secondryNormalTextStyle,
+                                    minFontSize: 18,
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.all(15.0),
+                                    primary: buttonColor,
+                                  ),
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -178,13 +268,9 @@ class AddIncomeCategoryPage extends StatelessWidget {
                             ),
                             ElevatedButton(
                               onPressed: () {
-                                debugPrint(
-                                    state.incomeTextEditingController.text);
-                                debugPrint(state.incomeCategoryNameText);
                                 context
                                     .read<AddCategoryCubit>()
                                     .changeIncomeText();
-                                debugPrint(state.incomeCategoryNameText);
                               },
                               child:
                                   const Icon(Icons.check, color: balanceColor),

@@ -14,6 +14,7 @@ import 'package:budget_app/views/expenseCategory_view.dart';
 import 'package:budget_app/views/incomeCategory_view.dart';
 import 'package:budget_app/views/main_view.dart';
 import 'package:budget_app/views/overview_view.dart';
+import 'package:budget_app/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -60,6 +61,35 @@ class HomePage extends StatelessWidget {
     ];
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+      floatingActionButton: Container(
+        padding: const EdgeInsets.fromLTRB(30, 10, 0, 10),
+        height: 75,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              onPressed: () {},
+              backgroundColor: incomeColor,
+              child: const Icon(
+                Icons.arrow_downward_rounded,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            FloatingActionButton(
+              onPressed: () {},
+              backgroundColor: expenseColor,
+              child: const Icon(
+                Icons.arrow_upward_rounded,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
+      ),
       body: Row(
         children: [
           Flexible(
@@ -158,6 +188,9 @@ class HomePage extends StatelessWidget {
               }
               if (state is AddClientPageState) {
                 return const AddClientPage();
+              }
+              if (state is SettingsPageState) {
+                return const SettingsPage();
               } else {
                 return const SizedBox(child: Center(child: Text('empty Page')));
               }

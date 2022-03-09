@@ -10,6 +10,11 @@ class AddCategoryCubit extends Cubit<AddCategoryState> {
   Color expensePickerColor = expenseColor;
   Color incomePickerColor = incomeColor;
 
+  int iconIndex = 8;
+
+  String incomePickerStringColor = '';
+  String expensePickerStringCOlor = '';
+
   String incomeCategoryNameText = 'Kategori ismi';
   String expenseCategoryNameText = 'Kategori ismi';
 
@@ -20,6 +25,7 @@ class AddCategoryCubit extends Cubit<AddCategoryState> {
     emit(AddIncomeCategoryState(
         pickerColor: incomePickerColor,
         incomeTextEditingController: incomeTextEditingController,
+        iconIndex: iconIndex,
         incomeCategoryNameText: incomeCategoryNameText));
   }
 
@@ -28,6 +34,7 @@ class AddCategoryCubit extends Cubit<AddCategoryState> {
       pickerColor: expensePickerColor,
       expenseTextEditingController: expenseTextEditingController,
       expenseCategoryNameText: expenseCategoryNameText,
+      iconIndex: iconIndex,
     ));
   }
 
@@ -36,6 +43,7 @@ class AddCategoryCubit extends Cubit<AddCategoryState> {
     emit(AddIncomeCategoryState(
         pickerColor: incomePickerColor,
         incomeTextEditingController: incomeTextEditingController,
+        iconIndex: iconIndex,
         incomeCategoryNameText: incomeCategoryNameText));
   }
 
@@ -45,6 +53,7 @@ class AddCategoryCubit extends Cubit<AddCategoryState> {
       pickerColor: expensePickerColor,
       expenseTextEditingController: expenseTextEditingController,
       expenseCategoryNameText: expenseCategoryNameText,
+      iconIndex: iconIndex,
     ));
   }
 
@@ -53,6 +62,7 @@ class AddCategoryCubit extends Cubit<AddCategoryState> {
     emit(AddIncomeCategoryState(
         pickerColor: incomePickerColor,
         incomeTextEditingController: incomeTextEditingController,
+        iconIndex: iconIndex,
         incomeCategoryNameText: incomeCategoryNameText));
   }
 
@@ -62,10 +72,30 @@ class AddCategoryCubit extends Cubit<AddCategoryState> {
       pickerColor: expensePickerColor,
       expenseTextEditingController: expenseTextEditingController,
       expenseCategoryNameText: expenseCategoryNameText,
+      iconIndex: iconIndex,
     ));
   }
 
-  void addIncomeCategoryInToDatabase() {}
+  void changeIncomeIcon(int index) {
+    iconIndex = index;
+    emit(AddIncomeCategoryState(
+        pickerColor: incomePickerColor,
+        incomeTextEditingController: incomeTextEditingController,
+        iconIndex: iconIndex,
+        incomeCategoryNameText: incomeCategoryNameText));
+  }
 
-  void addExpenseCategoryInToDatabase() {}
+  void changeExpenseIcon(int index) {
+    iconIndex = index;
+    emit(AddExpenseCategoryState(
+      pickerColor: expensePickerColor,
+      expenseTextEditingController: expenseTextEditingController,
+      expenseCategoryNameText: expenseCategoryNameText,
+      iconIndex: iconIndex,
+    ));
+  }
+
+  Future addIncomeCategoryInToDatabase() async {}
+
+  Future addExpenseCategoryInToDatabase() async {}
 }

@@ -19,13 +19,20 @@ class AddIncomeCategoryState extends AddCategoryState {
     required this.pickerColor,
     required this.incomeTextEditingController,
     required this.incomeCategoryNameText,
+    required this.iconIndex,
   });
   final String incomeCategoryNameText;
   final Color pickerColor;
   final TextEditingController incomeTextEditingController;
+  final int iconIndex;
+
   @override
-  List<Object?> get props =>
-      [pickerColor, incomeTextEditingController, incomeCategoryNameText];
+  List<Object?> get props => [
+        pickerColor,
+        incomeTextEditingController,
+        incomeCategoryNameText,
+        iconIndex
+      ];
 }
 
 class AddExpenseCategoryState extends AddCategoryState {
@@ -33,11 +40,17 @@ class AddExpenseCategoryState extends AddCategoryState {
     required this.pickerColor,
     required this.expenseTextEditingController,
     required this.expenseCategoryNameText,
+    required this.iconIndex,
   });
   final String expenseCategoryNameText;
   final Color pickerColor;
   final TextEditingController expenseTextEditingController;
+  final int iconIndex;
   @override
-  List<Object?> get props =>
-      [pickerColor, expenseTextEditingController, expenseCategoryNameText];
+  List<Object?> get props => [
+        pickerColor,
+        expenseTextEditingController,
+        expenseCategoryNameText,
+        iconIndex
+      ];
 }
