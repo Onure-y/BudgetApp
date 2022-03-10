@@ -22,7 +22,7 @@ class AddIncomeCategoryState extends AddCategoryState {
     required this.iconIndex,
   });
   final String incomeCategoryNameText;
-  final Color pickerColor;
+  final String pickerColor;
   final TextEditingController incomeTextEditingController;
   final int iconIndex;
 
@@ -43,7 +43,7 @@ class AddExpenseCategoryState extends AddCategoryState {
     required this.iconIndex,
   });
   final String expenseCategoryNameText;
-  final Color pickerColor;
+  final String pickerColor;
   final TextEditingController expenseTextEditingController;
   final int iconIndex;
   @override

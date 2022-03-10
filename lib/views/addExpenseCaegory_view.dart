@@ -3,6 +3,7 @@ import 'package:budget_app/constant.dart';
 import 'package:budget_app/cubits/addCategoryCubit/addCategory_state.dart';
 import 'package:budget_app/cubits/addCategoryCubit/addCategory_cubit.dart';
 import 'package:budget_app/cubits/appCubit/app_cubit.dart';
+import 'package:budget_app/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -12,8 +13,10 @@ class AddExpenseCategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserRepository userRepository = context.read<UserRepository>();
     return BlocProvider(
-      create: (context) => AddCategoryCubit()..goToAddExpenseCategoryPage(),
+      create: (context) => AddCategoryCubit(userRepository: userRepository)
+        ..goToAddExpenseCategoryPage(),
       child: Container(
         child: BlocBuilder<AddCategoryCubit, AddCategoryState>(
             builder: (BuildContext context, AddCategoryState state) {
@@ -63,7 +66,7 @@ class AddExpenseCategoryPage extends StatelessWidget {
                           width: 250,
                           height: 250,
                           decoration: BoxDecoration(
-                            color: state.pickerColor,
+                            color: Color(int.parse('0xff' + state.pickerColor)),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           child: Column(
@@ -99,12 +102,18 @@ class AddExpenseCategoryPage extends StatelessWidget {
                                           title: const Text('Pick a color!'),
                                           content: SingleChildScrollView(
                                             child: ColorPicker(
-                                              pickerColor: state.pickerColor,
+                                              pickerColor: Color(int.parse(
+                                                  '0xff' + state.pickerColor)),
                                               onColorChanged: (Color color) {
+                                                String myStringColor = color
+                                                    .value
+                                                    .toRadixString(16)
+                                                    .substring(2, 8);
+                                                debugPrint(myStringColor);
                                                 newContext
                                                     .read<AddCategoryCubit>()
                                                     .changeColorForExpensePage(
-                                                        color);
+                                                        myStringColor);
                                               },
                                             ),
                                           ),

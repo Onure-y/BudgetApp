@@ -4,6 +4,7 @@ import 'package:budget_app/cubits/addCategoryCubit/addCategory_state.dart';
 import 'package:budget_app/cubits/addCategoryCubit/addCategory_cubit.dart';
 import 'package:budget_app/cubits/appCubit/app_cubit.dart';
 import 'package:budget_app/helper/icon_package.dart';
+import 'package:budget_app/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -14,8 +15,10 @@ class AddIncomeCategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserRepository userRepository = context.read<UserRepository>();
     return BlocProvider(
-      create: (context) => AddCategoryCubit()..goToAddIncomeCategoryPage(),
+      create: (context) => AddCategoryCubit(userRepository: userRepository)
+        ..goToAddIncomeCategoryPage(),
       child: Container(child: BlocBuilder<AddCategoryCubit, AddCategoryState>(
         builder: (BuildContext context, AddCategoryState state) {
           if (state is AddCategoryStateLoading) {
@@ -65,7 +68,7 @@ class AddIncomeCategoryPage extends StatelessWidget {
                           width: 250,
                           height: 250,
                           decoration: BoxDecoration(
-                            color: state.pickerColor,
+                            color: Color(int.parse('0xff' + state.pickerColor)),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           child: Column(
@@ -100,12 +103,18 @@ class AddIncomeCategoryPage extends StatelessWidget {
                                           title: const Text('Renk Sec!'),
                                           content: SingleChildScrollView(
                                             child: ColorPicker(
-                                              pickerColor: state.pickerColor,
+                                              pickerColor: Color(int.parse(
+                                                  '0xff' + state.pickerColor)),
                                               onColorChanged: (Color color) {
+                                                String myStringColor = color
+                                                    .value
+                                                    .toRadixString(16)
+                                                    .substring(2, 8);
+                                                debugPrint(myStringColor);
                                                 newContext
                                                     .read<AddCategoryCubit>()
                                                     .changeColorForIncomePage(
-                                                        color);
+                                                        myStringColor);
                                               },
                                             ),
                                           ),
@@ -150,7 +159,13 @@ class AddIncomeCategoryPage extends StatelessWidget {
                                                   (BuildContext context,
                                                       int index) {
                                                 return InkWell(
-                                                  onTap: () {},
+                                                  onTap: () {
+                                                    newContext
+                                                        .read<
+                                                            AddCategoryCubit>()
+                                                        .changeIncomeIcon(
+                                                            index);
+                                                  },
                                                   child: Icon(IconHelperPackage
                                                       .icons[index]),
                                                 );
@@ -313,7 +328,11 @@ class AddIncomeCategoryPage extends StatelessWidget {
                               width: 50,
                             ),
                             ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                context
+                                    .read<AddCategoryCubit>()
+                                    .addIncomeCategoryInToDatabase();
+                              },
                               child: AutoSizeText(
                                 'Kategori Ekle',
                                 style: primaryNormalTextStyle,

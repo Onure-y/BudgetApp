@@ -8,7 +8,7 @@ class AppLoadingComp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: CircularProgressIndicator(
-        color: secondaryLightColor,
+        color: primaryDarkColor,
         strokeWidth: 3,
       ),
     );
