@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:budget_app/components/app_loading.dart';
 import 'package:budget_app/constant.dart';
+import 'package:budget_app/cubits/addCategoryCubit/addCategory_cubit.dart';
 import 'package:budget_app/cubits/appCubit/app_cubit.dart';
 import 'package:budget_app/cubits/categoryCubit/category_cubit.dart';
 import 'package:budget_app/cubits/categoryCubit/category_state.dart';
@@ -37,52 +38,14 @@ class IncomeCategoryPage extends StatelessWidget {
                     color: lightColor,
                     child: Row(
                       children: [
-                        InkWell(
-                          onTap: () {
-                            context.read<AppCubit>().changeIncomeCategoryPage();
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                            height: double.infinity,
-                            width: 200,
-                            decoration: const BoxDecoration(
-                              color: backgroundColor,
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(20.0),
-                                topLeft: Radius.circular(20.0),
-                              ),
-                            ),
-                            child: Center(
-                              child: AutoSizeText(
-                                'Gelir',
-                                minFontSize: 36,
-                                style: secondryMediumTextStyle,
-                              ),
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            context
-                                .read<AppCubit>()
-                                .changeExpenseCategoryPage();
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                            height: double.infinity,
-                            width: 200,
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(20.0),
-                                topLeft: Radius.circular(20.0),
-                              ),
-                            ),
-                            child: Center(
-                              child: AutoSizeText(
-                                'Gider',
-                                minFontSize: 36,
-                                style: secondryMediumTextStyle,
-                              ),
+                        Container(
+                          padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                          height: double.infinity,
+                          child: Center(
+                            child: AutoSizeText(
+                              'Kategoriler',
+                              minFontSize: 36,
+                              style: secondryMediumTextStyle,
                             ),
                           ),
                         ),
@@ -95,117 +58,118 @@ class IncomeCategoryPage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          AutoSizeText(
-                            'Gelir Kategorileri',
-                            style: secondryMediumTextStyle,
-                            minFontSize: 24,
-                          ),
                           const SizedBox(
-                            height: 10,
+                            height: 20,
                           ),
-                          const Divider(
-                            color: Colors.black,
-                            thickness: 1,
-                          ),
-                          const SizedBox(
-                            height: 40,
-                          ),
-                          Flexible(
-                            child: Container(
-                              child: GridView(
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 4,
-                                  mainAxisSpacing: 20,
-                                  crossAxisSpacing: 70,
-                                  childAspectRatio: 1,
-                                ),
-                                children: List.generate(
-                                  state.userModel.allCategories.length + 1,
-                                  (index) {
-                                    if (index ==
-                                        state.userModel.allCategories.length) {
-                                      return InkWell(
-                                        onTap: () {
-                                          context
-                                              .read<AppCubit>()
-                                              .goToAddIncomeCategoryPage();
-                                        },
-                                        child: DottedBorder(
-                                          color: Colors.black,
-                                          strokeWidth: 1,
-                                          dashPattern: const [5, 5],
-                                          borderType: BorderType.RRect,
-                                          radius: const Radius.circular(20.0),
-                                          child: Center(
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                DottedBorder(
-                                                  child: const Icon(
-                                                    Icons.add,
-                                                    size: 64,
+                          BlocProvider(
+                            create: (context) => AddCategoryCubit(
+                                userRepository: userRepository),
+                            child: Flexible(
+                              child: Container(
+                                child: GridView(
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 4,
+                                    mainAxisSpacing: 20,
+                                    crossAxisSpacing: 70,
+                                    childAspectRatio: 1,
+                                  ),
+                                  children: List.generate(
+                                    state.userModel.allCategories.length + 1,
+                                    (index) {
+                                      if (index ==
+                                          state
+                                              .userModel.allCategories.length) {
+                                        return InkWell(
+                                          onTap: () {
+                                            context
+                                                .read<AppCubit>()
+                                                .goToAddIncomeCategoryPage();
+                                          },
+                                          child: DottedBorder(
+                                            color: Colors.black,
+                                            strokeWidth: 1,
+                                            dashPattern: const [5, 5],
+                                            borderType: BorderType.RRect,
+                                            radius: const Radius.circular(20.0),
+                                            child: Center(
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  DottedBorder(
+                                                    child: const Icon(
+                                                      Icons.add,
+                                                      size: 64,
+                                                    ),
+                                                    strokeWidth: 1,
+                                                    dashPattern: const [5, 5],
+                                                    borderType:
+                                                        BorderType.Circle,
                                                   ),
-                                                  strokeWidth: 1,
-                                                  dashPattern: const [5, 5],
-                                                  borderType: BorderType.Circle,
-                                                ),
-                                                const SizedBox(
-                                                  height: 10,
-                                                ),
-                                                AutoSizeText(
-                                                  'Kategori Ekle',
-                                                  style:
-                                                      secondryNormalTextStyle,
-                                                  minFontSize: 16,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    } else {
-                                      CategoryModel categoryModel =
-                                          state.userModel.allCategories[index];
-                                      return InkWell(
-                                        onTap: () {},
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: ColorConverter
-                                                .convertColorFromString(
-                                                    categoryModel
-                                                        .containerColor),
-                                            borderRadius:
-                                                BorderRadius.circular(20.0),
-                                          ),
-                                          child: Center(
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  IconHelperPackage.icons[
-                                                      categoryModel
-                                                          .categoryIconIndex],
-                                                  size: 64,
-                                                  color: Colors.white,
-                                                ),
-                                                const SizedBox(
-                                                  height: 10,
-                                                ),
-                                                AutoSizeText(
-                                                    categoryModel.categoryName,
+                                                  const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  AutoSizeText(
+                                                    'Kategori Ekle',
                                                     style:
-                                                        primaryNormalTextStyle,
-                                                    minFontSize: 16),
-                                              ],
+                                                        secondryNormalTextStyle,
+                                                    minFontSize: 16,
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      );
-                                    }
-                                  },
+                                        );
+                                      } else {
+                                        CategoryModel categoryModel = state
+                                            .userModel.allCategories[index];
+                                        return Builder(builder: (newCntext) {
+                                          return InkWell(
+                                            onTap: () async {
+                                              context
+                                                  .read<AppCubit>()
+                                                  .goToEditCategoryPage(index);
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: ColorConverter
+                                                    .convertColorFromString(
+                                                        categoryModel
+                                                            .containerColor),
+                                                borderRadius:
+                                                    BorderRadius.circular(20.0),
+                                              ),
+                                              child: Center(
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      IconHelperPackage.icons[
+                                                          categoryModel
+                                                              .categoryIconIndex],
+                                                      size: 64,
+                                                      color: Colors.white,
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    AutoSizeText(
+                                                        categoryModel
+                                                            .categoryName,
+                                                        style:
+                                                            primaryNormalTextStyle,
+                                                        minFontSize: 16),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        });
+                                      }
+                                    },
+                                  ),
                                 ),
                               ),
                             ),

@@ -1,8 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:budget_app/constant.dart';
+import 'package:budget_app/cubits/addCategoryCubit/addCategory_cubit.dart';
 import 'package:budget_app/cubits/addClientCubit/addClient_cubit.dart';
 import 'package:budget_app/cubits/addClientCubit/addClient_state.dart';
 import 'package:budget_app/cubits/appCubit/app_cubit.dart';
+import 'package:budget_app/helper/icon_package.dart';
+import 'package:budget_app/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -12,8 +15,11 @@ class AddClientPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserRepository userRepository = context.read<UserRepository>();
+
     return BlocProvider(
-      create: (context) => AddClientCubit()..init(),
+      create: (context) =>
+          AddClientCubit(userRepository: userRepository)..init(),
       child: Container(
         child: Column(
           children: [
@@ -66,8 +72,8 @@ class AddClientPage extends StatelessWidget {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Icon(
-                                  Icons.person,
+                                Icon(
+                                  IconHelperPackage.icons[state.iconIndex],
                                   color: Colors.white,
                                   size: 64,
                                 ),
@@ -142,18 +148,83 @@ class AddClientPage extends StatelessWidget {
                               const SizedBox(
                                 width: 30.0,
                               ),
-                              ElevatedButton(
-                                onPressed: () {},
-                                child: AutoSizeText(
-                                  'Icon Degistir',
-                                  style: secondryNormalTextStyle,
-                                  minFontSize: 18,
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.all(15.0),
-                                  primary: buttonColor,
-                                ),
+                              Builder(builder: (newContext) {
+                                return ElevatedButton(
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: const Center(
+                                              child: Text('Icon sec')),
+                                          content: Container(
+                                            width: 500,
+                                            height: 500,
+                                            child: GridView.builder(
+                                              itemCount: IconHelperPackage
+                                                  .icons.length,
+                                              gridDelegate:
+                                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                                crossAxisCount: 4,
+                                              ),
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                      int index) {
+                                                return InkWell(
+                                                  onTap: () {
+                                                    newContext
+                                                        .read<AddClientCubit>()
+                                                        .changeIcon(index);
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Icon(IconHelperPackage
+                                                      .icons[index]),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: AutoSizeText(
+                                    'Icon Degistir',
+                                    style: secondryNormalTextStyle,
+                                    minFontSize: 18,
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.all(15.0),
+                                    primary: buttonColor,
+                                  ),
+                                );
+                              }),
+                              const SizedBox(
+                                width: 30.0,
                               ),
+                              Builder(builder: (newContext) {
+                                return ElevatedButton(
+                                  onPressed: () async {
+                                    await newContext
+                                        .read<AddClientCubit>()
+                                        .createNewClient();
+                                    context
+                                        .read<AppCubit>()
+                                        .goBackToClientPage();
+                                  },
+                                  child: AutoSizeText(
+                                    'Kisi Kaydet',
+                                    style: primaryNormalTextStyle,
+                                    minFontSize: 18,
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.all(15.0),
+                                    primary: incomeColor,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                  ),
+                                );
+                              }),
                             ],
                           ),
                           const SizedBox(
@@ -174,8 +245,6 @@ class AddClientPage extends StatelessWidget {
                                   ),
                                   itemBuilder:
                                       (BuildContext context, int index) {
-                                    List<TextEditingController>
-                                        textEditingControllers = [];
                                     return Container(
                                       child: TextFormField(
                                         onChanged: (text) {

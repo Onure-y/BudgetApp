@@ -94,58 +94,18 @@ class UserRepository {
     userBox.put(userDataKey, userModel);
   }
 
-  Future createUser() async {
+  Future createUser({
+    required String firstName,
+    required String lastNme,
+    required String companyName,
+  }) async {
     UserModel createdUserData = UserModel(
-      firstName: 'Onur Emre',
-      lastName: 'YILDIRIM',
-      companyName: 'Rise Software',
-      allCategories: [
-        /*       CategoryModel(
-          categoryIcon: Icon(Icons.home_filled),
-          categoryName: 'Malzeme',
-          containerColor: '2A2438',
-        ) */
-      ],
-      allCustomers: [
-        /* CustomerModel(
-          address: '',
-          city: '',
-          companyName: 'Rise Software',
-          firstName: 'Ensar Aydin',
-          lastName: 'Aydin',
-          containerColor: '2A2438',
-          customerIcon: const Icon(Icons.person),
-          details: '',
-          email: '',
-          telephoneNumber1: '',
-          telephoneNumber2: '',
-          web: '',
-        ), */
-      ],
-      allMovements: [
-        MovementModel(
-          movementText: 'Rise Software',
-          movementValue: 12500,
-          time: getCurrentTime(),
-          isCategoryMovement: true,
-        )..updateCategory(
-            CategoryModel(
-              categoryIconIndex: 0,
-              categoryName: 'Malzeme',
-              containerColor: '2A2438',
-            ),
-            emptyCustomerModel),
-        /*   MovementModel(
-          movementText: 'Rise Software',
-          movementValue: 12.500,
-          time: getCurrentTime() + 50,
-        ),
-        MovementModel(
-          movementText: 'Rise Software',
-          movementValue: 12.500,
-          time: getCurrentTime() + 100,
-        ), */
-      ],
+      firstName: firstName,
+      lastName: lastNme,
+      companyName: companyName,
+      allCategories: [],
+      allCustomers: [],
+      allMovements: [],
     );
     userBox.put(userDataKey, createdUserData);
   }
@@ -163,6 +123,18 @@ class UserRepository {
     );
     userModel.allCategories.add(newCategory);
     userBox.put(userDataKey, userModel);
+  }
+
+  Future createNewClient({required CustomerModel customerModel}) async {
+    UserModel userModel = await getUserData();
+    userModel.allCustomers.add(customerModel);
+    userBox.put(userDataKey, userModel);
+  }
+
+  Future deleteCategory(int index) async {
+    UserModel userData = await getUserData();
+    userData.allCategories.removeAt(index);
+    userBox.put(userDataKey, userData);
   }
 
   Future deleteUserFromDatabase() async {

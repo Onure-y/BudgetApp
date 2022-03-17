@@ -1,3 +1,4 @@
+import 'package:budget_app/models/categoryModel/category_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -35,22 +36,26 @@ class AddIncomeCategoryState extends AddCategoryState {
       ];
 }
 
-class AddExpenseCategoryState extends AddCategoryState {
-  AddExpenseCategoryState({
+class EditCategoryState extends AddCategoryState {
+  EditCategoryState({
     required this.pickerColor,
-    required this.expenseTextEditingController,
-    required this.expenseCategoryNameText,
+    required this.incomeTextEditingController,
+    required this.incomeCategoryNameText,
     required this.iconIndex,
+    required this.categoryModel,
   });
-  final String expenseCategoryNameText;
+  final String incomeCategoryNameText;
   final String pickerColor;
-  final TextEditingController expenseTextEditingController;
+  final TextEditingController incomeTextEditingController;
   final int iconIndex;
+  final CategoryModel categoryModel;
+
   @override
   List<Object?> get props => [
         pickerColor,
-        expenseTextEditingController,
-        expenseCategoryNameText,
-        iconIndex
+        incomeTextEditingController,
+        incomeCategoryNameText,
+        iconIndex,
+        categoryModel,
       ];
 }

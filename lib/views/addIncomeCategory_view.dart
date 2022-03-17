@@ -165,6 +165,7 @@ class AddIncomeCategoryPage extends StatelessWidget {
                                                             AddCategoryCubit>()
                                                         .changeIncomeIcon(
                                                             index);
+                                                    Navigator.pop(context);
                                                   },
                                                   child: Icon(IconHelperPackage
                                                       .icons[index]),
@@ -172,63 +173,6 @@ class AddIncomeCategoryPage extends StatelessWidget {
                                               },
                                             ),
                                           ),
-                                          actions: [
-                                            TextButton(
-                                              style: TextButton.styleFrom(
-                                                backgroundColor: expenseColor,
-                                              ),
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: Text(
-                                                'Iptal',
-                                                style: primaryNormalTextStyle,
-                                              ),
-                                            ),
-                                            TextButton(
-                                              style: TextButton.styleFrom(
-                                                  backgroundColor: incomeColor),
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: Text(
-                                                'Tamam',
-                                                style: primaryNormalTextStyle,
-                                              ),
-                                            ),
-                                            /* ElevatedButton(
-                                              onPressed: () {},
-                                              child: AutoSizeText(
-                                                'Iptal Et',
-                                                style: primaryNormalTextStyle,
-                                                minFontSize: 18,
-                                              ),
-                                              style: ElevatedButton.styleFrom(
-                                                primary: expenseColor,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20.0),
-                                                ),
-                                              ),
-                                            ),
-                                            ElevatedButton(
-                                              onPressed: () {},
-                                              child: AutoSizeText(
-                                                'Tamam',
-                                                style: primaryNormalTextStyle,
-                                                minFontSize: 18,
-                                              ),
-                                              style: ElevatedButton.styleFrom(
-                                                primary: incomeColor,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20.0),
-                                                ),
-                                              ),
-                                            ), */
-                                          ],
                                         );
                                       },
                                     );
@@ -332,6 +276,9 @@ class AddIncomeCategoryPage extends StatelessWidget {
                                 context
                                     .read<AddCategoryCubit>()
                                     .addIncomeCategoryInToDatabase();
+                                context
+                                    .read<AppCubit>()
+                                    .changeIncomeCategoryPage();
                               },
                               child: AutoSizeText(
                                 'Kategori Ekle',

@@ -6,6 +6,7 @@ import 'package:budget_app/models/movementModel/movement_model.dart';
 import 'package:budget_app/models/userModel/user_model.dart';
 import 'package:budget_app/repositories/user_repository.dart';
 import 'package:budget_app/views/home_view.dart';
+import 'package:budget_app/views/logic_view.dart';
 import 'package:budget_app/views/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: const HomePage(),
+          home: const LogicPage(),
         ),
       ),
     );

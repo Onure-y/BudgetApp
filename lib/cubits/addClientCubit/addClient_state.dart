@@ -20,13 +20,15 @@ class AddClientLoadedState extends AddClientState {
     required this.firstName,
     required this.lastName,
     required this.clientContainerColor,
+    required this.iconIndex,
   });
 
   final List<Map<String, dynamic>> formList;
   final String firstName;
   final String lastName;
   final Color clientContainerColor;
+  final int iconIndex;
   @override
   List<Object?> get props =>
-      [formList, firstName, clientContainerColor, lastName];
+      [formList, firstName, clientContainerColor, lastName, iconIndex];
 }

@@ -52,6 +52,13 @@ class AddExpenseCategoryPageState extends AppState {
   List<Object?> get props => [];
 }
 
+class EditCategoryPageState extends AppState {
+  EditCategoryPageState({required this.index});
+  final int index;
+  @override
+  List<Object?> get props => [index];
+}
+
 class AddClientPageState extends AppState {
   @override
   List<Object?> get props => [];

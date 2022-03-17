@@ -21,7 +21,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   Future createUser() async {
-    await userRepository.createUser();
+    // await userRepository.createUser();
     await getDataFromDatabase();
     emit(SettingsLoadedState(userModel: userModel));
   }

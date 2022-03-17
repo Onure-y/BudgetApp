@@ -6,11 +6,10 @@ import 'package:budget_app/cubits/appCubit/app_cubit_state.dart';
 import 'package:budget_app/cubits/navigationCubit/navigation_cubit.dart';
 import 'package:budget_app/cubits/navigationCubit/navigation_cubit_state.dart';
 import 'package:budget_app/views/addClient_view.dart';
-import 'package:budget_app/views/addExpenseCaegory_view.dart';
 import 'package:budget_app/views/addIncomeCategory_view.dart';
 import 'package:budget_app/views/allMovements_view.dart';
+import 'package:budget_app/views/categoryEdit_view.dart';
 import 'package:budget_app/views/clients_view.dart';
-import 'package:budget_app/views/expenseCategory_view.dart';
 import 'package:budget_app/views/incomeCategory_view.dart';
 import 'package:budget_app/views/main_view.dart';
 import 'package:budget_app/views/overview_view.dart';
@@ -174,23 +173,22 @@ class HomePage extends StatelessWidget {
               if (state is IncomeCategoryPageState) {
                 return const IncomeCategoryPage();
               }
-              if (state is ExpenseCategoryPageState) {
-                return const ExpenseCategoryPage();
-              }
+
               if (state is ClientPageState) {
                 return const ClientsPage();
               }
               if (state is AddIncomeCategoryPageState) {
                 return const AddIncomeCategoryPage();
               }
-              if (state is AddExpenseCategoryPageState) {
-                return const AddExpenseCategoryPage();
-              }
+
               if (state is AddClientPageState) {
                 return const AddClientPage();
               }
               if (state is SettingsPageState) {
                 return const SettingsPage();
+              }
+              if (state is EditCategoryPageState) {
+                return const CategoryEditPage();
               } else {
                 return const SizedBox(child: Center(child: Text('empty Page')));
               }
@@ -257,8 +255,7 @@ class _NavBarLinksState extends State<_NavBarLinks> {
               flex: 2,
               child: AutoSizeText(
                 widget.title,
-                presetFontSizes: const [20, 14],
-                maxLines: 1,
+                minFontSize: 18,
                 style: primaryNormalTextStyle,
               ),
             ),

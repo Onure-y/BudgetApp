@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:budget_app/constant.dart';
 import 'package:budget_app/cubits/addCategoryCubit/addCategory_state.dart';
+import 'package:budget_app/models/userModel/user_model.dart';
 import 'package:budget_app/repositories/user_repository.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -31,12 +32,14 @@ class AddCategoryCubit extends Cubit<AddCategoryState> {
     ));
   }
 
-  void goToAddExpenseCategoryPage() {
-    emit(AddExpenseCategoryState(
+  Future goToEditCategoryPage(int index) async {
+    UserModel userModel = await userRepository.getUserData();
+    emit(EditCategoryState(
       pickerColor: incomePickerStringColor,
-      expenseTextEditingController: expenseTextEditingController,
-      expenseCategoryNameText: expenseCategoryNameText,
+      incomeTextEditingController: incomeTextEditingController,
       iconIndex: iconIndex,
+      incomeCategoryNameText: incomeCategoryNameText,
+      categoryModel: userModel.allCategories[index],
     ));
   }
 
@@ -50,16 +53,6 @@ class AddCategoryCubit extends Cubit<AddCategoryState> {
     ));
   }
 
-  void changeColorForExpensePage(String stringColor) {
-    expensePickerStringCOlor = stringColor;
-    emit(AddExpenseCategoryState(
-      pickerColor: expensePickerStringCOlor,
-      expenseTextEditingController: expenseTextEditingController,
-      expenseCategoryNameText: expenseCategoryNameText,
-      iconIndex: iconIndex,
-    ));
-  }
-
   void changeIncomeText() {
     incomeCategoryNameText = incomeTextEditingController.text;
     emit(AddIncomeCategoryState(
@@ -70,16 +63,6 @@ class AddCategoryCubit extends Cubit<AddCategoryState> {
     ));
   }
 
-  void changeExpenseText() {
-    expenseCategoryNameText = expenseTextEditingController.text;
-    emit(AddExpenseCategoryState(
-      pickerColor: incomePickerStringColor,
-      expenseTextEditingController: expenseTextEditingController,
-      expenseCategoryNameText: expenseCategoryNameText,
-      iconIndex: iconIndex,
-    ));
-  }
-
   void changeIncomeIcon(int index) {
     iconIndex = index;
     emit(AddIncomeCategoryState(
@@ -87,16 +70,6 @@ class AddCategoryCubit extends Cubit<AddCategoryState> {
       incomeTextEditingController: incomeTextEditingController,
       iconIndex: iconIndex,
       incomeCategoryNameText: incomeCategoryNameText,
-    ));
-  }
-
-  void changeExpenseIcon(int index) {
-    iconIndex = index;
-    emit(AddExpenseCategoryState(
-      pickerColor: incomePickerStringColor,
-      expenseTextEditingController: expenseTextEditingController,
-      expenseCategoryNameText: expenseCategoryNameText,
-      iconIndex: iconIndex,
     ));
   }
 
@@ -111,5 +84,7 @@ class AddCategoryCubit extends Cubit<AddCategoryState> {
     );
   }
 
-  Future addExpenseCategoryInToDatabase() async {}
+  Future deleteCategoryFromDatabase(int index) async {
+    await userRepository.deleteCategory(index);
+  }
 }
