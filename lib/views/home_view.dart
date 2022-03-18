@@ -9,6 +9,7 @@ import 'package:budget_app/views/addClient_view.dart';
 import 'package:budget_app/views/addIncomeCategory_view.dart';
 import 'package:budget_app/views/allMovements_view.dart';
 import 'package:budget_app/views/categoryEdit_view.dart';
+import 'package:budget_app/views/clientEdit_view.dart';
 import 'package:budget_app/views/clients_view.dart';
 import 'package:budget_app/views/incomeCategory_view.dart';
 import 'package:budget_app/views/main_view.dart';
@@ -189,6 +190,9 @@ class HomePage extends StatelessWidget {
               }
               if (state is EditCategoryPageState) {
                 return const CategoryEditPage();
+              }
+              if (state is EditClientPageState) {
+                return const ClientEditPage();
               } else {
                 return const SizedBox(child: Center(child: Text('empty Page')));
               }

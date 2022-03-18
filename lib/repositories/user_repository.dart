@@ -137,6 +137,12 @@ class UserRepository {
     userBox.put(userDataKey, userData);
   }
 
+  Future deleteClient(int index) async {
+    UserModel userData = await getUserData();
+    userData.allCustomers.removeAt(index);
+    userBox.put(userDataKey, userData);
+  }
+
   Future deleteUserFromDatabase() async {
     userBox.delete(userDataKey);
   }

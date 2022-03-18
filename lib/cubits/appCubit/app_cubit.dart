@@ -12,6 +12,7 @@ class AppCubit extends Cubit<AppState> {
   }
 
   int categoryIndex = 0;
+  int clientIndex = 0;
 
   Future checkForUserState() async {}
 
@@ -52,6 +53,11 @@ class AppCubit extends Cubit<AppState> {
   void goToEditCategoryPage(int index) {
     categoryIndex = index;
     emit(EditCategoryPageState(index: index));
+  }
+
+  void goToEditClientPage(int index) {
+    clientIndex = index;
+    emit(EditClientPageState(index: index));
   }
 
   void goToAddClientPage() {

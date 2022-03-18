@@ -149,7 +149,11 @@ class ClientsPage extends StatelessWidget {
                                       CustomerModel customerModel =
                                           state.userModel.allCustomers[index];
                                       return InkWell(
-                                        onTap: () {},
+                                        onTap: () {
+                                          context
+                                              .read<AppCubit>()
+                                              .goToEditClientPage(index);
+                                        },
                                         child: Container(
                                           decoration: BoxDecoration(
                                             color: ColorConverter
