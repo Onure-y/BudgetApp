@@ -133,7 +133,7 @@ class MainPage extends StatelessWidget {
                                                                       width: 20,
                                                                     ),
                                                                     AutoSizeText(
-                                                                      'Gider',
+                                                                      'Gelir',
                                                                       minFontSize:
                                                                           22,
                                                                       style:

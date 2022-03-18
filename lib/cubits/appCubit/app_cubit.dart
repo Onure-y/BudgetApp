@@ -60,6 +60,14 @@ class AppCubit extends Cubit<AppState> {
     emit(EditClientPageState(index: index));
   }
 
+  void goToChooseMovementTypePage() {
+    emit(AddChooseMovementTypePageState());
+  }
+
+  void goToAddCategoryMovementPage() {
+    emit(AddCategoryMovementPageState());
+  }
+
   void goToAddClientPage() {
     emit(AddClientPageState());
   }
