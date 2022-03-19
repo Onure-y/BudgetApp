@@ -5,6 +5,7 @@ import 'package:budget_app/constant.dart';
 import 'package:budget_app/cubits/appCubit/app_cubit.dart';
 import 'package:budget_app/cubits/homePageCubit/homePage_cubit.dart';
 import 'package:budget_app/cubits/homePageCubit/homePage_state.dart';
+import 'package:budget_app/helper/color_converter.dart';
 import 'package:budget_app/models/movementModel/movement_model.dart';
 import 'package:budget_app/models/userModel/user_model.dart';
 import 'package:budget_app/repositories/user_repository.dart';
@@ -569,7 +570,10 @@ class MainPage extends StatelessWidget {
                                                               icon: const Icon(Icons
                                                                   .house_rounded),
                                                               movementCategoryColor:
-                                                                  incomeColor,
+                                                                  ColorConverter.convertColorFromString(
+                                                                      movementModel
+                                                                          .category
+                                                                          .containerColor),
                                                               movementCategoryName:
                                                                   movementModel
                                                                       .category
