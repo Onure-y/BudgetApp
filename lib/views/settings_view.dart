@@ -84,6 +84,20 @@ class SettingsPage extends StatelessWidget {
                                     child: const Text('kullanici veri sifirla'),
                                   );
                                 }),
+                                const SizedBox(
+                                  width: 100,
+                                ),
+                                Builder(builder: (newContext) {
+                                  return ElevatedButton(
+                                    onPressed: () {
+                                      newContext
+                                          .read<SettingsCubit>()
+                                          .deleteAllMovements();
+                                    },
+                                    child: const Text(
+                                        'kullanici hareketleri sifirla'),
+                                  );
+                                }),
                               ],
                             ),
                             const SizedBox(height: 200),

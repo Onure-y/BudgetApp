@@ -3,6 +3,7 @@ import 'package:budget_app/components/movement_comp.dart';
 import 'package:budget_app/constant.dart';
 import 'package:budget_app/cubits/allMovementsCubit/allMovement_cubit.dart';
 import 'package:budget_app/cubits/allMovementsCubit/allMovement_state.dart';
+import 'package:budget_app/helper/color_converter.dart';
 import 'package:budget_app/models/movementModel/movement_model.dart';
 import 'package:budget_app/models/userModel/user_model.dart';
 import 'package:budget_app/repositories/user_repository.dart';
@@ -153,7 +154,10 @@ class AllMovementsPage extends StatelessWidget {
                                           dateTime:
                                               movementModel.time.toString(),
                                           icon: const Icon(Icons.house_rounded),
-                                          movementCategoryColor: incomeColor,
+                                          movementCategoryColor: ColorConverter
+                                              .convertColorFromString(
+                                                  movementModel
+                                                      .category.containerColor),
                                           movementCategoryName: movementModel
                                               .category.categoryName,
                                           movementName:

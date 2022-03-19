@@ -59,7 +59,7 @@ class MovementComp extends StatelessWidget {
               width: 15,
             ),
             AutoSizeText(
-              movementName,
+              movementCategoryName,
               style: secondryNormalTextStyle,
               minFontSize: 18,
             ),

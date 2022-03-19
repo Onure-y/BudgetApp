@@ -127,4 +127,18 @@ class AddClientCubit extends Cubit<AddClientState> {
     );
     await userRepository.createNewClient(customerModel: newCustomerData);
   }
+
+  Future goToClientEditPage(int index) async {
+    UserModel userModel = await userRepository.getUserData();
+    emit(
+      EditClientState(
+        customerModel: userModel.allCustomers[index],
+        index: index,
+      ),
+    );
+  }
+
+  Future deleteClientFromDatabase(int index) async {
+    await userRepository.deleteClient(index);
+  }
 }

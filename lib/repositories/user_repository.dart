@@ -75,19 +75,20 @@ class UserRepository {
         emptyCategoryModel);
   }
 
-  Future createMovementWithCategory() async {
+  Future createMovementWithCategory({
+    required String movementText,
+    required double movementValue,
+    required int time,
+    required CategoryModel categoryModel,
+  }) async {
     UserModel userModel = await getUserData();
     MovementModel templateMovementModel = MovementModel(
-      movementText: 'Rise Software',
-      movementValue: 12500,
-      time: getCurrentTime(),
+      movementText: movementText,
+      movementValue: movementValue,
+      time: time,
       isCategoryMovement: true,
     )..updateCategory(
-        CategoryModel(
-          categoryIconIndex: 0,
-          categoryName: 'Malzeme',
-          containerColor: '2A2438',
-        ),
+        categoryModel,
         emptyCustomerModel,
       );
     userModel.allMovements.add(templateMovementModel);
@@ -134,6 +135,18 @@ class UserRepository {
   Future deleteCategory(int index) async {
     UserModel userData = await getUserData();
     userData.allCategories.removeAt(index);
+    userBox.put(userDataKey, userData);
+  }
+
+  Future clearAllMovements() async {
+    UserModel userData = await getUserData();
+    userData.allMovements.clear();
+    userBox.put(userDataKey, userData);
+  }
+
+  Future deleteClient(int index) async {
+    UserModel userData = await getUserData();
+    userData.allCustomers.removeAt(index);
     userBox.put(userDataKey, userData);
   }
 

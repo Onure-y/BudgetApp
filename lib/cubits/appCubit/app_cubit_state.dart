@@ -59,6 +59,23 @@ class EditCategoryPageState extends AppState {
   List<Object?> get props => [index];
 }
 
+class EditClientPageState extends AppState {
+  EditClientPageState({required this.index});
+  final int index;
+  @override
+  List<Object?> get props => [index];
+}
+
+class AddChooseMovementTypePageState extends AppState {
+  @override
+  List<Object?> get props => [];
+}
+
+class AddCategoryMovementPageState extends AppState {
+  @override
+  List<Object?> get props => [];
+}
+
 class AddClientPageState extends AppState {
   @override
   List<Object?> get props => [];

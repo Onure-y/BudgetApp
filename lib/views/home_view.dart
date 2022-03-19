@@ -5,10 +5,13 @@ import 'package:budget_app/cubits/appCubit/app_cubit.dart';
 import 'package:budget_app/cubits/appCubit/app_cubit_state.dart';
 import 'package:budget_app/cubits/navigationCubit/navigation_cubit.dart';
 import 'package:budget_app/cubits/navigationCubit/navigation_cubit_state.dart';
+import 'package:budget_app/views/addCategoryMovement_view.dart';
 import 'package:budget_app/views/addClient_view.dart';
 import 'package:budget_app/views/addIncomeCategory_view.dart';
 import 'package:budget_app/views/allMovements_view.dart';
 import 'package:budget_app/views/categoryEdit_view.dart';
+import 'package:budget_app/views/chooseMovementType_view.dart';
+import 'package:budget_app/views/clientEdit_view.dart';
 import 'package:budget_app/views/clients_view.dart';
 import 'package:budget_app/views/incomeCategory_view.dart';
 import 'package:budget_app/views/main_view.dart';
@@ -64,29 +67,16 @@ class HomePage extends StatelessWidget {
       floatingActionButton: Container(
         padding: const EdgeInsets.fromLTRB(30, 10, 0, 10),
         height: 75,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton(
-              onPressed: () {},
-              backgroundColor: incomeColor,
-              child: const Icon(
-                Icons.arrow_downward_rounded,
-                color: Colors.white,
-              ),
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            FloatingActionButton(
-              onPressed: () {},
-              backgroundColor: expenseColor,
-              child: const Icon(
-                Icons.arrow_upward_rounded,
-                color: Colors.white,
-              ),
-            ),
-          ],
+        child: FloatingActionButton(
+          onPressed: () {
+            context.read<AppCubit>().goToChooseMovementTypePage();
+          },
+          backgroundColor: incomeColor,
+          child: const Icon(
+            Icons.add,
+            size: 36,
+            color: Colors.white,
+          ),
         ),
       ),
       body: Row(
@@ -189,6 +179,15 @@ class HomePage extends StatelessWidget {
               }
               if (state is EditCategoryPageState) {
                 return const CategoryEditPage();
+              }
+              if (state is EditClientPageState) {
+                return const ClientEditPage();
+              }
+              if (state is AddChooseMovementTypePageState) {
+                return const ChooseMovementTypePage();
+              }
+              if (state is AddCategoryMovementPageState) {
+                return const AddCategoryMovementPage();
               } else {
                 return const SizedBox(child: Center(child: Text('empty Page')));
               }

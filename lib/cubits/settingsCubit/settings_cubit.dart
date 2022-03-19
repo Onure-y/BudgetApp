@@ -32,7 +32,11 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   Future createIncomeMovement() async {
-    await userRepository.createMovementWithCategory();
+    // await userRepository.createMovementWithCategory();
     await getDataFromDatabase();
+  }
+
+  Future deleteAllMovements() async {
+    await userRepository.clearAllMovements();
   }
 }

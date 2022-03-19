@@ -1,3 +1,4 @@
+import 'package:budget_app/models/customerModel/customer_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,4 +32,16 @@ class AddClientLoadedState extends AddClientState {
   @override
   List<Object?> get props =>
       [formList, firstName, clientContainerColor, lastName, iconIndex];
+}
+
+class EditClientState extends AddClientState {
+  EditClientState({
+    required this.customerModel,
+    required this.index,
+  });
+
+  final CustomerModel customerModel;
+  final int index;
+  @override
+  List<Object?> get props => [customerModel];
 }
