@@ -6,6 +6,8 @@ import 'package:budget_app/cubits/appCubit/app_cubit.dart';
 import 'package:budget_app/cubits/homePageCubit/homePage_cubit.dart';
 import 'package:budget_app/cubits/homePageCubit/homePage_state.dart';
 import 'package:budget_app/helper/color_converter.dart';
+import 'package:budget_app/helper/icon_package.dart';
+import 'package:budget_app/helper/timer_package.dart';
 import 'package:budget_app/models/movementModel/movement_model.dart';
 import 'package:budget_app/models/userModel/user_model.dart';
 import 'package:budget_app/repositories/user_repository.dart';
@@ -82,7 +84,9 @@ class MainPage extends StatelessWidget {
                                                                     .allMovements
                                                                     .isEmpty
                                                                 ? '*******'
-                                                                : '24.500',
+                                                                : state
+                                                                    .budgetValue
+                                                                    .toString(),
                                                             minFontSize: 24,
                                                             style:
                                                                 secondryMediumTextStyle,
@@ -101,7 +105,7 @@ class MainPage extends StatelessWidget {
                                                         ),
                                                         foregroundPainter:
                                                             MyPainter(
-                                                          120,
+                                                          state.incomeDeg,
                                                           incomeColor,
                                                           boxConstraints
                                                                       .maxHeight <
@@ -198,7 +202,11 @@ class MainPage extends StatelessWidget {
                                                                 secondryMediumTextStyle,
                                                           ),
                                                           TextButton(
-                                                            onPressed: () {},
+                                                            onPressed: () {
+                                                              debugPrint(state
+                                                                  .incomeDeg
+                                                                  .toString());
+                                                            },
                                                             child: AutoSizeText(
                                                               'Tumunu Gor',
                                                               minFontSize: 18,
@@ -230,7 +238,9 @@ class MainPage extends StatelessWidget {
                                                                       .allMovements
                                                                       .isEmpty
                                                                   ? '*******'
-                                                                  : '24.500',
+                                                                  : state
+                                                                      .incomeValue
+                                                                      .toString(),
                                                               style:
                                                                   secondryNormalTextStyle,
                                                               minFontSize: 24,
@@ -291,7 +301,9 @@ class MainPage extends StatelessWidget {
                                                                       .allMovements
                                                                       .isEmpty
                                                                   ? '*******'
-                                                                  : '24.500',
+                                                                  : state
+                                                                      .expenseValue
+                                                                      .toString(),
                                                               style:
                                                                   secondryNormalTextStyle,
                                                               minFontSize: 24,
@@ -352,7 +364,9 @@ class MainPage extends StatelessWidget {
                                                                       .allMovements
                                                                       .isEmpty
                                                                   ? '*******'
-                                                                  : '24.500',
+                                                                  : state
+                                                                      .budgetValue
+                                                                      .toString(),
                                                               style:
                                                                   secondryNormalTextStyle,
                                                               minFontSize: 24,
@@ -417,8 +431,8 @@ class MainPage extends StatelessWidget {
                                                     series: <ChartSeries>[
                                                       // Renders spline chart
 
-                                                      SplineSeries<ChartData,
-                                                              String>(
+                                                      LineSeries<
+                                                              ChartData, String>(
                                                           legendItemText:
                                                               'Gelirler',
                                                           enableTooltip: true,
@@ -426,15 +440,11 @@ class MainPage extends StatelessWidget {
                                                           name: 'Gelirler',
                                                           width: 5,
                                                           dataSource: state
-                                                                  .userModel
-                                                                  .allMovements
+                                                                  .incomeMovements
                                                                   .isEmpty
                                                               ? []
-                                                              : [
-                                                                  ChartData(
-                                                                      'Tem',
-                                                                      40),
-                                                                ],
+                                                              : state
+                                                                  .monthlyIncomeMovements,
                                                           xValueMapper:
                                                               (ChartData sales,
                                                                       _) =>
@@ -443,8 +453,8 @@ class MainPage extends StatelessWidget {
                                                               (ChartData sales,
                                                                       _) =>
                                                                   sales.y),
-                                                      SplineSeries<ChartData,
-                                                              String>(
+                                                      LineSeries<
+                                                              ChartData, String>(
                                                           legendItemText:
                                                               'Giderler',
                                                           animationDuration:
@@ -454,15 +464,11 @@ class MainPage extends StatelessWidget {
                                                           width: 5,
                                                           color: expenseColor,
                                                           dataSource: state
-                                                                  .userModel
-                                                                  .allMovements
+                                                                  .expenseMovements
                                                                   .isEmpty
                                                               ? []
-                                                              : [
-                                                                  ChartData(
-                                                                      'Tem',
-                                                                      40),
-                                                                ],
+                                                              : state
+                                                                  .monthlyExpenseMovements,
                                                           xValueMapper:
                                                               (ChartData sales,
                                                                       _) =>
@@ -508,7 +514,19 @@ class MainPage extends StatelessWidget {
                                                       ],
                                                     ),
                                                     TextButton(
-                                                      onPressed: () {},
+                                                      onPressed: () {
+                                                        debugPrint(
+                                                          state
+                                                              .monthlyIncomeMovements[
+                                                                  1]
+                                                              .x
+                                                              .toString(),
+                                                        );
+                                                        debugPrint(state
+                                                            .monthlyIncomeMovements
+                                                            .length
+                                                            .toString());
+                                                      },
                                                       child: AutoSizeText(
                                                         'Tumunu Gor',
                                                         minFontSize: 18,
@@ -567,8 +585,11 @@ class MainPage extends StatelessWidget {
                                                                           movementModel
                                                                               .time)
                                                                   .toString(),
-                                                              icon: const Icon(Icons
-                                                                  .house_rounded),
+                                                              icon: Icon(IconHelperPackage
+                                                                      .icons[
+                                                                  movementModel
+                                                                      .category
+                                                                      .categoryIconIndex]),
                                                               movementCategoryColor:
                                                                   ColorConverter.convertColorFromString(
                                                                       movementModel
@@ -626,7 +647,7 @@ class MainPage extends StatelessWidget {
 class ChartData {
   ChartData(this.x, this.y);
   final String x;
-  final double? y;
+  double? y;
 }
 
 class DateTimeHelper {
