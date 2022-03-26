@@ -98,23 +98,20 @@ class SettingsPage extends StatelessWidget {
                                         'kullanici hareketleri sifirla'),
                                   );
                                 }),
-                                const SizedBox(
-                                  width: 100,
-                                ),
-                                Builder(builder: (newContext) {
-                                  return ElevatedButton(
-                                    onPressed: () {
-                                      newContext
-                                          .read<SettingsCubit>()
-                                          .createNewForwardMovement();
-                                    },
-                                    child:
-                                        const Text('ileri sureli hareket ekle'),
-                                  );
-                                }),
                               ],
                             ),
-                            const SizedBox(height: 200),
+                            const SizedBox(height: 20),
+                            Builder(builder: (newContext) {
+                              return ElevatedButton(
+                                onPressed: () {
+                                  newContext
+                                      .read<SettingsCubit>()
+                                      .createNewForwardMovement();
+                                },
+                                child: const Text('ileri sureli hareket ekle'),
+                              );
+                            }),
+                            const SizedBox(height: 20),
                             state.userModel.firstName == ''
                                 ? Text('Isim yok')
                                 : Text(

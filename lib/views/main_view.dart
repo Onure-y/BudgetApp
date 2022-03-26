@@ -443,7 +443,8 @@ class MainPage extends StatelessWidget {
                                                                   .monthlyIncomeMovements
                                                                   .isEmpty
                                                               ? []
-                                                              : [],
+                                                              : state
+                                                                  .monthlyIncomeMovements,
                                                           xValueMapper:
                                                               (ChartData sales,
                                                                       _) =>
@@ -466,7 +467,8 @@ class MainPage extends StatelessWidget {
                                                                   .monthlyExpenseMovements
                                                                   .isEmpty
                                                               ? []
-                                                              : [],
+                                                              : state
+                                                                  .monthlyExpenseMovements,
                                                           xValueMapper:
                                                               (ChartData sales,
                                                                       _) =>

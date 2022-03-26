@@ -123,11 +123,11 @@ class UserRepository {
 
   Future createTestIncomeMovement() async {
     UserModel userModel = await getUserData();
-    int forwardTime = DateTime.utc(2022, 3, 27).millisecondsSinceEpoch;
+    int forwardTime = DateTime.utc(2022, 3, 31).millisecondsSinceEpoch;
     await createMovementWithCategory(
         categoryModel: userModel.allCategories[0],
         movementText: 'aaaa',
-        movementValue: 200,
+        movementValue: 870,
         time: forwardTime);
   }
 

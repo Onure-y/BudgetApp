@@ -115,40 +115,32 @@ class HomePageCubit extends Cubit<HomePageState> {
           DateTime.fromMillisecondsSinceEpoch(i.time).year ==
               currentDateTime.year &&
           i.movementValue > 0) {
-        // debugPrint(i.movementValue.toString());
-
         if (monthlyIncomeMovements.isEmpty) {
+          debugPrint('created');
           monthlyIncomeMovements.add(ChartData(
               DateTime.fromMillisecondsSinceEpoch(i.time).day.toString(),
               i.movementValue));
         } else {
-          // debugPrint(allMovements[allMovements.length - 1].movementText);
+          ChartData emptyChartData = ChartData('', 0);
+          if (monthlyIncomeMovements.last.x ==
+              DateTime.fromMillisecondsSinceEpoch(i.time).day.toString()) {
+            monthlyIncomeMovements.last.y =
+                monthlyIncomeMovements.last.y! + i.movementValue;
+          } else {
+            debugPrint('bb ${monthlyIncomeMovements.last.y.toString()}');
 
-          List<ChartData> emptyChartData = [];
-          for (ChartData j in monthlyIncomeMovements) {
-            debugPrint(j.x.toString());
-            if (j.x ==
-                DateTime.fromMillisecondsSinceEpoch(i.time).day.toString()) {
-              j.y = j.y! + i.movementValue;
-            } else {
-              emptyChartData.add(
-                ChartData(
-                  DateTime.fromMillisecondsSinceEpoch(i.time).day.toString(),
-                  i.movementValue,
-                ),
-              );
-            }
+            emptyChartData = (ChartData(
+              DateTime.fromMillisecondsSinceEpoch(i.time).day.toString(),
+              i.movementValue,
+            ));
           }
-          emptyChartData.isNotEmpty
-              ? monthlyIncomeMovements.add(emptyChartData[0])
-              : {};
+          debugPrint('aa ${monthlyIncomeMovements.last.y.toString()}');
+          emptyChartData.x == ''
+              ? {}
+              : monthlyIncomeMovements.add(emptyChartData);
         }
       }
     }
-    // debugPrint(monthlyIncomeMovements[0].x.toString());
-    // debugPrint(monthlyIncomeMovements[1].x.toString());
-    // debugPrint(monthlyIncomeMovements[2].x.toString());
-    // debugPrint(monthlyIncomeMovements[3].x.toString());
   }
 
   Future getCurrentMonthExpenseList() async {
@@ -160,7 +152,6 @@ class HomePageCubit extends Cubit<HomePageState> {
           DateTime.fromMillisecondsSinceEpoch(i.time).year ==
               currentDateTime.year &&
           i.movementValue < 0) {
-        // debugPrint(i.movementValue.toString());
         if (monthlyExpenseMovements.isEmpty) {
           monthlyExpenseMovements.add(
             ChartData(
@@ -168,23 +159,20 @@ class HomePageCubit extends Cubit<HomePageState> {
                 i.movementValue),
           );
         } else {
-          List<ChartData> emptyChartData = [];
-          for (ChartData j in monthlyExpenseMovements) {
-            if (j.x ==
-                DateTime.fromMicrosecondsSinceEpoch(i.time).day.toString()) {
-              j.y = j.y! + i.movementValue;
-            } else {
-              emptyChartData.add(
-                ChartData(
-                  DateTime.fromMillisecondsSinceEpoch(i.time).day.toString(),
-                  i.movementValue,
-                ),
-              );
-            }
+          ChartData emptyChartData = ChartData('', 0);
+          if (monthlyExpenseMovements.last.x ==
+              DateTime.fromMillisecondsSinceEpoch(i.time).day.toString()) {
+            monthlyExpenseMovements.last.y =
+                monthlyExpenseMovements.last.y! + i.movementValue;
+          } else {
+            emptyChartData = (ChartData(
+              DateTime.fromMillisecondsSinceEpoch(i.time).day.toString(),
+              i.movementValue,
+            ));
           }
-          emptyChartData.isNotEmpty
-              ? monthlyExpenseMovements.add(emptyChartData[0])
-              : {};
+          emptyChartData.x == ''
+              ? {}
+              : monthlyExpenseMovements.add(emptyChartData);
         }
       }
     }
