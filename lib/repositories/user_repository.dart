@@ -51,30 +51,6 @@ class UserRepository {
     return timestamp;
   }
 
-  Future createMovementWithCustomer() async {
-    MovementModel templateMovementModel = MovementModel(
-      movementText: 'Rise Software',
-      movementValue: 12500,
-      time: getCurrentTime(),
-      isCategoryMovement: false,
-    )..updateCustomer(
-        CustomerModel(
-          address: 'kyk',
-          city: 'konya',
-          companyName: 'Spacex',
-          firstName: 'Elon',
-          lastName: 'Musk',
-          containerColor: 'FD635C',
-          customerIconIndex: 0,
-          details: 'ascasdac',
-          email: 'asdac',
-          telephoneNumber1: 'aac',
-          telephoneNumber2: 'ascas',
-          web: 'ascasc',
-        ),
-        emptyCategoryModel);
-  }
-
   Future createMovementWithCategory({
     required String movementText,
     required double movementValue,
@@ -90,6 +66,25 @@ class UserRepository {
     )..updateCategory(
         categoryModel,
         emptyCustomerModel,
+      );
+    userModel.allMovements.add(templateMovementModel);
+    userBox.put(userDataKey, userModel);
+  }
+
+  Future createMovementWithCustomer(
+      {required String movementText,
+      required double movementValue,
+      required int time,
+      required CustomerModel customerModel}) async {
+    UserModel userModel = await getUserData();
+    MovementModel templateMovementModel = MovementModel(
+      movementText: movementText,
+      movementValue: movementValue,
+      time: time,
+      isCategoryMovement: false,
+    )..updateCustomer(
+        customerModel,
+        emptyCategoryModel,
       );
     userModel.allMovements.add(templateMovementModel);
     userBox.put(userDataKey, userModel);
@@ -124,6 +119,16 @@ class UserRepository {
     );
     userModel.allCategories.add(newCategory);
     userBox.put(userDataKey, userModel);
+  }
+
+  Future createTestIncomeMovement() async {
+    UserModel userModel = await getUserData();
+    int forwardTime = DateTime.utc(2022, 3, 27).millisecondsSinceEpoch;
+    await createMovementWithCategory(
+        categoryModel: userModel.allCategories[0],
+        movementText: 'aaaa',
+        movementValue: 200,
+        time: forwardTime);
   }
 
   Future createNewClient({required CustomerModel customerModel}) async {

@@ -83,7 +83,9 @@ class ChooseMovementTypePage extends StatelessWidget {
                     ),
                     const SizedBox(width: 100),
                     InkWell(
-                      onTap: () async {},
+                      onTap: () async {
+                        context.read<AppCubit>().goToAddCustomerMovementPage();
+                      },
                       child: Container(
                         height: size.height * .35,
                         width: size.height * .35,

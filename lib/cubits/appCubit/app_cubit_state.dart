@@ -76,6 +76,11 @@ class AddCategoryMovementPageState extends AppState {
   List<Object?> get props => [];
 }
 
+class AddCustomerMovementPageState extends AppState {
+  @override
+  List<Object?> get props => [];
+}
+
 class AddClientPageState extends AppState {
   @override
   List<Object?> get props => [];

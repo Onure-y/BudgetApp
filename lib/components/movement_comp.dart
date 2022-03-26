@@ -25,50 +25,69 @@ class MovementComp extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          children: [
-            icon,
-            const SizedBox(
-              width: 15,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
+        Flexible(
+          flex: 5,
+          child: Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AutoSizeText(
-                  movementName,
-                  style: secondryNormalTextStyle,
-                  minFontSize: 22,
+                Flexible(
+                  flex: 3,
+                  child: Row(
+                    children: [
+                      icon,
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          AutoSizeText(
+                            movementName,
+                            style: secondryNormalTextStyle,
+                            minFontSize: 22,
+                          ),
+                          AutoSizeText(
+                            dateTime,
+                            style: semiThinNormalTextStyle,
+                            minFontSize: 14,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-                AutoSizeText(
-                  dateTime,
-                  style: semiThinNormalTextStyle,
-                  minFontSize: 14,
+                Flexible(
+                  flex: 2,
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: movementCategoryColor,
+                        radius: 10,
+                      ),
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      AutoSizeText(
+                        movementCategoryName,
+                        style: secondryNormalTextStyle,
+                        minFontSize: 18,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
-          ],
+          ),
         ),
-        Row(
-          children: [
-            CircleAvatar(
-              backgroundColor: movementCategoryColor,
-              radius: 10,
-            ),
-            const SizedBox(
-              width: 15,
-            ),
-            AutoSizeText(
-              movementCategoryName,
-              style: secondryNormalTextStyle,
-              minFontSize: 18,
-            ),
-          ],
-        ),
-        AutoSizeText(
-          '$movementValue TL',
-          style: secondryMediumTextStyle,
-          minFontSize: 24,
+        Flexible(
+          flex: 2,
+          child: AutoSizeText(
+            '$movementValue TL',
+            style: secondryMediumTextStyle,
+            minFontSize: 24,
+          ),
         ),
       ],
     );

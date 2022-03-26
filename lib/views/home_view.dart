@@ -7,6 +7,7 @@ import 'package:budget_app/cubits/navigationCubit/navigation_cubit.dart';
 import 'package:budget_app/cubits/navigationCubit/navigation_cubit_state.dart';
 import 'package:budget_app/views/addCategoryMovement_view.dart';
 import 'package:budget_app/views/addClient_view.dart';
+import 'package:budget_app/views/addCustomerMovement_view.dart';
 import 'package:budget_app/views/addIncomeCategory_view.dart';
 import 'package:budget_app/views/allMovements_view.dart';
 import 'package:budget_app/views/categoryEdit_view.dart';
@@ -32,7 +33,6 @@ class HomePage extends StatelessWidget {
       'Genel Bakis',
       'Kategoriler',
       'Kisiler',
-      'Ayarlar'
     ];
 
     List<FaIcon> icons = const [
@@ -117,7 +117,7 @@ class HomePage extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: List.generate(
-                              6,
+                              titles.length,
                               (index) => Material(
                                 color: Colors.transparent,
                                 elevation: 0,
@@ -188,6 +188,9 @@ class HomePage extends StatelessWidget {
               }
               if (state is AddCategoryMovementPageState) {
                 return const AddCategoryMovementPage();
+              }
+              if (state is AddCustomerMovementPageState) {
+                return const AddCustomerMovementPage();
               } else {
                 return const SizedBox(child: Center(child: Text('empty Page')));
               }
