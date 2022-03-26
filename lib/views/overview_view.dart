@@ -40,241 +40,250 @@ class OverviewPage extends StatelessWidget {
             width: double.infinity,
             color: lightColor,
             child: AutoSizeText(
-              'Ana Sayfa',
+              'Work In Progress',
               minFontSize: 36,
               style: secondryMediumTextStyle,
             ),
           ),
           Flexible(
             child: Container(
-              child: Column(
-                children: [
-                  Flexible(
-                    child: Container(
-                      padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                      child: Row(
-                        children: [
-                          Flexible(
-                            child: Container(
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      AutoSizeText(
-                                        'Genel Hareket Dagilimi',
-                                        style: secondryMediumTextStyle,
-                                        minFontSize: 24,
-                                      ),
-                                      CustomDropdownButton2(
-                                        hint: 'Select Item',
-                                        dropdownItems: items,
-                                        value: selectedValue,
-                                        onChanged: (value) {},
-                                      ),
-                                    ],
-                                  ),
-                                  Flexible(
-                                    child: Container(
-                                      child: LayoutBuilder(
-                                        builder: (BuildContext context,
-                                            BoxConstraints constraints) {
-                                          return Row(
-                                            children: [
-                                              Container(
-                                                height:
-                                                    constraints.maxHeight * 0.9,
-                                                width:
-                                                    constraints.maxHeight * 0.9,
-                                                child: CustomPaint(
-                                                  foregroundPainter: MyPainter(
-                                                    120,
-                                                    incomeColor,
-                                                    constraints.maxHeight < 300
-                                                        ? 30
-                                                        : 60,
-                                                  ),
-                                                  painter: MySecondaryPainter(
-                                                    360,
-                                                    secondryIncomeColor,
-                                                    0,
-                                                    constraints.maxHeight < 300
-                                                        ? 30
-                                                        : 60,
-                                                  ),
-                                                ),
-                                              ),
-                                              Flexible(
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Flexible(
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .symmetric(
-                                                                horizontal:
-                                                                    10.0),
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: [
-                                                            Row(
-                                                              children: [
-                                                                const CircleAvatar(
-                                                                  backgroundColor:
-                                                                      incomeColor,
-                                                                  radius: 10,
-                                                                ),
-                                                                const SizedBox(
-                                                                  width: 10,
-                                                                ),
-                                                                AutoSizeText(
-                                                                  'Sirket Geliri',
-                                                                  minFontSize:
-                                                                      16,
-                                                                  style:
-                                                                      secondryMediumTextStyle,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            AutoSizeText(
-                                                              '72.000 TL',
-                                                              minFontSize: 16,
-                                                              style:
-                                                                  secondryMediumTextStyle,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Flexible(
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .symmetric(
-                                                                horizontal:
-                                                                    10.0),
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: [
-                                                            Row(
-                                                              children: [
-                                                                const CircleAvatar(
-                                                                  backgroundColor:
-                                                                      secondryIncomeColor,
-                                                                  radius: 10,
-                                                                ),
-                                                                const SizedBox(
-                                                                  width: 10,
-                                                                ),
-                                                                AutoSizeText(
-                                                                  'Sirket Alicaklari',
-                                                                  minFontSize:
-                                                                      16,
-                                                                  style:
-                                                                      secondryMediumTextStyle,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            AutoSizeText(
-                                                              '72.000 TL',
-                                                              minFontSize: 16,
-                                                              style:
-                                                                  secondryMediumTextStyle,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Flexible(
-                            child: Container(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  AutoSizeText(
-                                    'Genel Dagilim',
-                                    style: secondryMediumTextStyle,
-                                    minFontSize: 24,
-                                  ),
-                                  Flexible(
-                                    child: Container(
-                                      child: GridView.builder(
-                                          itemCount: 6,
-                                          gridDelegate:
-                                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: 2,
-                                            childAspectRatio: 3,
-                                          ),
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            return const OverviewPageComp(
-                                                icon: FaIcon(
-                                                  FontAwesomeIcons
-                                                      .solidBuilding,
-                                                  size: 32,
-                                                ),
-                                                name: 'Toplam Gelir',
-                                                moneyValue: '1,245,450 Tl');
-                                          }),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Flexible(
-                    child: Container(
-                      child: SfCartesianChart(
-                        tooltipBehavior: tooltipBehavior,
-                        primaryXAxis: CategoryAxis(),
-                        series: <ChartSeries>[
-                          // Renders area chart
-                          AreaSeries<OverviewChartModel, String>(
-                              legendItemText: 'Bakiye',
-                              enableTooltip: true,
-                              color: incomeColor,
-                              name: 'Bakiye',
-                              dataSource: data,
-                              xValueMapper: (OverviewChartModel data, _) =>
-                                  data.month,
-                              yValueMapper: (OverviewChartModel data, _) =>
-                                  data.moneyValue,
-                              gradient: charsGradientColor)
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/workInProgress.jpg'),
+                ),
               ),
             ),
-          )
+          ),
+          // Flexible(
+          //   child: Container(
+          //     child: Column(
+          //       children: [
+          //         Flexible(
+          //           child: Container(
+          //             padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+          //             child: Row(
+          //               children: [
+          //                 Flexible(
+          //                   child: Container(
+          //                     child: Column(
+          //                       children: [
+          //                         Row(
+          //                           mainAxisAlignment:
+          //                               MainAxisAlignment.spaceBetween,
+          //                           children: [
+          //                             AutoSizeText(
+          //                               'Genel Hareket Dagilimi',
+          //                               style: secondryMediumTextStyle,
+          //                               minFontSize: 24,
+          //                             ),
+          //                             CustomDropdownButton2(
+          //                               hint: 'Select Item',
+          //                               dropdownItems: items,
+          //                               value: selectedValue,
+          //                               onChanged: (value) {},
+          //                             ),
+          //                           ],
+          //                         ),
+          //                         Flexible(
+          //                           child: Container(
+          //                             child: LayoutBuilder(
+          //                               builder: (BuildContext context,
+          //                                   BoxConstraints constraints) {
+          //                                 return Row(
+          //                                   children: [
+          //                                     Container(
+          //                                       height:
+          //                                           constraints.maxHeight * 0.9,
+          //                                       width:
+          //                                           constraints.maxHeight * 0.9,
+          //                                       child: CustomPaint(
+          //                                         foregroundPainter: MyPainter(
+          //                                           120,
+          //                                           incomeColor,
+          //                                           constraints.maxHeight < 300
+          //                                               ? 30
+          //                                               : 60,
+          //                                         ),
+          //                                         painter: MySecondaryPainter(
+          //                                           360,
+          //                                           secondryIncomeColor,
+          //                                           0,
+          //                                           constraints.maxHeight < 300
+          //                                               ? 30
+          //                                               : 60,
+          //                                         ),
+          //                                       ),
+          //                                     ),
+          //                                     Flexible(
+          //                                       child: Column(
+          //                                         mainAxisAlignment:
+          //                                             MainAxisAlignment.center,
+          //                                         crossAxisAlignment:
+          //                                             CrossAxisAlignment.start,
+          //                                         children: [
+          //                                           Flexible(
+          //                                             child: Padding(
+          //                                               padding:
+          //                                                   const EdgeInsets
+          //                                                           .symmetric(
+          //                                                       horizontal:
+          //                                                           10.0),
+          //                                               child: Row(
+          //                                                 mainAxisAlignment:
+          //                                                     MainAxisAlignment
+          //                                                         .spaceBetween,
+          //                                                 children: [
+          //                                                   Row(
+          //                                                     children: [
+          //                                                       const CircleAvatar(
+          //                                                         backgroundColor:
+          //                                                             incomeColor,
+          //                                                         radius: 10,
+          //                                                       ),
+          //                                                       const SizedBox(
+          //                                                         width: 10,
+          //                                                       ),
+          //                                                       AutoSizeText(
+          //                                                         'Sirket Geliri',
+          //                                                         minFontSize:
+          //                                                             16,
+          //                                                         style:
+          //                                                             secondryMediumTextStyle,
+          //                                                       ),
+          //                                                     ],
+          //                                                   ),
+          //                                                   AutoSizeText(
+          //                                                     '72.000 TL',
+          //                                                     minFontSize: 16,
+          //                                                     style:
+          //                                                         secondryMediumTextStyle,
+          //                                                   ),
+          //                                                 ],
+          //                                               ),
+          //                                             ),
+          //                                           ),
+          //                                           Flexible(
+          //                                             child: Padding(
+          //                                               padding:
+          //                                                   const EdgeInsets
+          //                                                           .symmetric(
+          //                                                       horizontal:
+          //                                                           10.0),
+          //                                               child: Row(
+          //                                                 mainAxisAlignment:
+          //                                                     MainAxisAlignment
+          //                                                         .spaceBetween,
+          //                                                 children: [
+          //                                                   Row(
+          //                                                     children: [
+          //                                                       const CircleAvatar(
+          //                                                         backgroundColor:
+          //                                                             secondryIncomeColor,
+          //                                                         radius: 10,
+          //                                                       ),
+          //                                                       const SizedBox(
+          //                                                         width: 10,
+          //                                                       ),
+          //                                                       AutoSizeText(
+          //                                                         'Sirket Alicaklari',
+          //                                                         minFontSize:
+          //                                                             16,
+          //                                                         style:
+          //                                                             secondryMediumTextStyle,
+          //                                                       ),
+          //                                                     ],
+          //                                                   ),
+          //                                                   AutoSizeText(
+          //                                                     '72.000 TL',
+          //                                                     minFontSize: 16,
+          //                                                     style:
+          //                                                         secondryMediumTextStyle,
+          //                                                   ),
+          //                                                 ],
+          //                                               ),
+          //                                             ),
+          //                                           ),
+          //                                         ],
+          //                                       ),
+          //                                     ),
+          //                                   ],
+          //                                 );
+          //                               },
+          //                             ),
+          //                           ),
+          //                         )
+          //                       ],
+          //                     ),
+          //                   ),
+          //                 ),
+          //                 Flexible(
+          //                   child: Container(
+          //                     padding:
+          //                         const EdgeInsets.symmetric(horizontal: 20.0),
+          //                     child: Column(
+          //                       crossAxisAlignment: CrossAxisAlignment.start,
+          //                       children: [
+          //                         AutoSizeText(
+          //                           'Genel Dagilim',
+          //                           style: secondryMediumTextStyle,
+          //                           minFontSize: 24,
+          //                         ),
+          //                         Flexible(
+          //                           child: Container(
+          //                             child: GridView.builder(
+          //                                 itemCount: 6,
+          //                                 gridDelegate:
+          //                                     const SliverGridDelegateWithFixedCrossAxisCount(
+          //                                   crossAxisCount: 2,
+          //                                   childAspectRatio: 3,
+          //                                 ),
+          //                                 itemBuilder: (BuildContext context,
+          //                                     int index) {
+          //                                   return const OverviewPageComp(
+          //                                       icon: FaIcon(
+          //                                         FontAwesomeIcons
+          //                                             .solidBuilding,
+          //                                         size: 32,
+          //                                       ),
+          //                                       name: 'Toplam Gelir',
+          //                                       moneyValue: '1,245,450 Tl');
+          //                                 }),
+          //                           ),
+          //                         )
+          //                       ],
+          //                     ),
+          //                   ),
+          //                 ),
+          //               ],
+          //             ),
+          //           ),
+          //         ),
+          //         Flexible(
+          //           child: Container(
+          //             child: SfCartesianChart(
+          //               tooltipBehavior: tooltipBehavior,
+          //               primaryXAxis: CategoryAxis(),
+          //               series: <ChartSeries>[
+          //                 // Renders area chart
+          //                 AreaSeries<OverviewChartModel, String>(
+          //                     legendItemText: 'Bakiye',
+          //                     enableTooltip: true,
+          //                     color: incomeColor,
+          //                     name: 'Bakiye',
+          //                     dataSource: data,
+          //                     xValueMapper: (OverviewChartModel data, _) =>
+          //                         data.month,
+          //                     yValueMapper: (OverviewChartModel data, _) =>
+          //                         data.moneyValue,
+          //                     gradient: charsGradientColor)
+          //               ],
+          //             ),
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // )
         ],
       ),
     );

@@ -26,13 +26,13 @@ class MovementComp extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Flexible(
-          flex: 3,
+          flex: 5,
           child: Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Flexible(
-                  flex: 2,
+                  flex: 3,
                   child: Row(
                     children: [
                       icon,
@@ -59,7 +59,7 @@ class MovementComp extends StatelessWidget {
                   ),
                 ),
                 Flexible(
-                  flex: 1,
+                  flex: 2,
                   child: Row(
                     children: [
                       CircleAvatar(

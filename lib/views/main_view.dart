@@ -440,11 +440,10 @@ class MainPage extends StatelessWidget {
                                                           name: 'Gelirler',
                                                           width: 5,
                                                           dataSource: state
-                                                                  .incomeMovements
+                                                                  .monthlyIncomeMovements
                                                                   .isEmpty
                                                               ? []
-                                                              : state
-                                                                  .monthlyIncomeMovements,
+                                                              : [],
                                                           xValueMapper:
                                                               (ChartData sales,
                                                                       _) =>
@@ -464,11 +463,10 @@ class MainPage extends StatelessWidget {
                                                           width: 5,
                                                           color: expenseColor,
                                                           dataSource: state
-                                                                  .expenseMovements
+                                                                  .monthlyExpenseMovements
                                                                   .isEmpty
                                                               ? []
-                                                              : state
-                                                                  .monthlyExpenseMovements,
+                                                              : [],
                                                           xValueMapper:
                                                               (ChartData sales,
                                                                       _) =>
@@ -506,7 +504,7 @@ class MainPage extends StatelessWidget {
                                                               secondryNormalTextStyle,
                                                         ),
                                                         AutoSizeText(
-                                                          'Tüm bir ay boyunca yapilan harcamalari gösterir',
+                                                          'Yapilan son harcamalar',
                                                           minFontSize: 14,
                                                           style:
                                                               thinNormalTextStyle,
@@ -591,14 +589,24 @@ class MainPage extends StatelessWidget {
                                                                       .category
                                                                       .categoryIconIndex]),
                                                               movementCategoryColor:
-                                                                  ColorConverter.convertColorFromString(
-                                                                      movementModel
-                                                                          .category
-                                                                          .containerColor),
-                                                              movementCategoryName:
-                                                                  movementModel
+                                                                  ColorConverter
+                                                                      .convertColorFromString(
+                                                                movementModel
+                                                                        .isCategoryMovement
+                                                                    ? movementModel
+                                                                        .category
+                                                                        .containerColor
+                                                                    : movementModel
+                                                                        .customer
+                                                                        .containerColor,
+                                                              ),
+                                                              movementCategoryName: movementModel.isCategoryMovement
+                                                                  ? movementModel
                                                                       .category
-                                                                      .categoryName,
+                                                                      .categoryName
+                                                                  : movementModel
+                                                                      .customer
+                                                                      .firstName,
                                                               movementName:
                                                                   movementModel
                                                                       .movementText,

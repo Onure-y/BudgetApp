@@ -115,6 +115,8 @@ class HomePageCubit extends Cubit<HomePageState> {
           DateTime.fromMillisecondsSinceEpoch(i.time).year ==
               currentDateTime.year &&
           i.movementValue > 0) {
+        // debugPrint(i.movementValue.toString());
+
         if (monthlyIncomeMovements.isEmpty) {
           monthlyIncomeMovements.add(ChartData(
               DateTime.fromMillisecondsSinceEpoch(i.time).day.toString(),
@@ -124,7 +126,7 @@ class HomePageCubit extends Cubit<HomePageState> {
 
           List<ChartData> emptyChartData = [];
           for (ChartData j in monthlyIncomeMovements) {
-            debugPrint(i.movementText);
+            debugPrint(j.x.toString());
             if (j.x ==
                 DateTime.fromMillisecondsSinceEpoch(i.time).day.toString()) {
               j.y = j.y! + i.movementValue;
@@ -143,6 +145,10 @@ class HomePageCubit extends Cubit<HomePageState> {
         }
       }
     }
+    // debugPrint(monthlyIncomeMovements[0].x.toString());
+    // debugPrint(monthlyIncomeMovements[1].x.toString());
+    // debugPrint(monthlyIncomeMovements[2].x.toString());
+    // debugPrint(monthlyIncomeMovements[3].x.toString());
   }
 
   Future getCurrentMonthExpenseList() async {
@@ -154,6 +160,7 @@ class HomePageCubit extends Cubit<HomePageState> {
           DateTime.fromMillisecondsSinceEpoch(i.time).year ==
               currentDateTime.year &&
           i.movementValue < 0) {
+        // debugPrint(i.movementValue.toString());
         if (monthlyExpenseMovements.isEmpty) {
           monthlyExpenseMovements.add(
             ChartData(

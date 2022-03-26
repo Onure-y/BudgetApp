@@ -141,7 +141,7 @@ class AllMovementsPage extends StatelessWidget {
                       child: Row(
                         children: [
                           Flexible(
-                            flex: 3,
+                            flex: 4,
                             child: Container(
                               padding:
                                   const EdgeInsets.only(right: 50.0, top: 20.0),
@@ -158,14 +158,25 @@ class AllMovementsPage extends StatelessWidget {
                                                       movementModel.time)
                                                   .toString(),
                                           icon: Icon(IconHelperPackage.icons[
-                                              movementModel
-                                                  .category.categoryIconIndex]),
+                                              movementModel.isCategoryMovement
+                                                  ? movementModel.category
+                                                      .categoryIconIndex
+                                                  : movementModel.customer
+                                                      .customerIconIndex]),
                                           movementCategoryColor: ColorConverter
                                               .convertColorFromString(
-                                                  movementModel
-                                                      .category.containerColor),
-                                          movementCategoryName: movementModel
-                                              .category.categoryName,
+                                            movementModel.isCategoryMovement
+                                                ? movementModel
+                                                    .category.containerColor
+                                                : movementModel
+                                                    .customer.containerColor,
+                                          ),
+                                          movementCategoryName:
+                                              movementModel.isCategoryMovement
+                                                  ? movementModel
+                                                      .category.categoryName
+                                                  : movementModel
+                                                      .customer.firstName,
                                           movementName:
                                               movementModel.movementText,
                                           movementValue: movementModel

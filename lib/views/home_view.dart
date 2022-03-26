@@ -33,7 +33,6 @@ class HomePage extends StatelessWidget {
       'Genel Bakis',
       'Kategoriler',
       'Kisiler',
-      'Ayarlar'
     ];
 
     List<FaIcon> icons = const [
@@ -118,7 +117,7 @@ class HomePage extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: List.generate(
-                              6,
+                              titles.length,
                               (index) => Material(
                                 color: Colors.transparent,
                                 elevation: 0,

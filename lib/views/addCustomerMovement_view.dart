@@ -3,10 +3,13 @@ import 'package:budget_app/components/app_loading.dart';
 import 'package:budget_app/constant.dart';
 import 'package:budget_app/cubits/addCategoryMovementCubit/addCategoryMovement_cubit.dart';
 import 'package:budget_app/cubits/addCategoryMovementCubit/addCategoryMovement_state.dart';
+import 'package:budget_app/cubits/addCustomerMovementCubit/addCustomerMovement_cubit.dart';
+import 'package:budget_app/cubits/addCustomerMovementCubit/addCustomerMovement_state.dart';
 import 'package:budget_app/cubits/appCubit/app_cubit.dart';
 import 'package:budget_app/helper/color_converter.dart';
 import 'package:budget_app/helper/icon_package.dart';
 import 'package:budget_app/models/categoryModel/category_model.dart';
+import 'package:budget_app/models/customerModel/customer_model.dart';
 import 'package:budget_app/repositories/user_repository.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -21,13 +24,13 @@ class AddCustomerMovementPage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return BlocProvider(
       create: (context) =>
-          AddCategoryMovementCubit(userRepository: userRepository),
-      child: BlocBuilder<AddCategoryMovementCubit, AddCategoryMovementState>(
-        builder: (BuildContext thisContext, AddCategoryMovementState state) {
-          if (state is AddCategoryMovementLoadingState) {
-            return AppLoadingComp();
+          AddCustomerMovementCubit(userRepository: userRepository),
+      child: BlocBuilder<AddCustomerMovementCubit, AddCustomerMovementState>(
+        builder: (BuildContext thisContext, AddCustomerMovementState state) {
+          if (state is AddCustomerMovementLoadingState) {
+            return const AppLoadingComp();
           }
-          if (state is AddCategoryMovementLoadedState) {
+          if (state is AddCustomerMovementLoadedState) {
             return Container(
               child: Column(
                 children: [
@@ -50,7 +53,7 @@ class AddCustomerMovementPage extends StatelessWidget {
                             size: 32,
                           ),
                           label: AutoSizeText(
-                            'Kategori Hareketi Ekleyin',
+                            'Kisi Hareketi Ekleyin',
                             minFontSize: 36,
                             style: secondryMediumTextStyle,
                           ),
@@ -76,7 +79,7 @@ class AddCustomerMovementPage extends StatelessWidget {
                               child: Container(
                                 decoration: BoxDecoration(
                                   color: ColorConverter.convertColorFromString(
-                                      state.category.containerColor),
+                                      state.customer.containerColor),
                                   borderRadius: BorderRadius.circular(20.0),
                                 ),
                                 child: Center(
@@ -84,17 +87,18 @@ class AddCustomerMovementPage extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Icon(
-                                        IconHelperPackage.icons[
-                                            state.category.categoryIconIndex],
+                                        IconHelperPackage.icons[0],
                                         size: 64,
                                         color: Colors.white,
                                       ),
                                       const SizedBox(
                                         height: 10,
                                       ),
-                                      AutoSizeText(state.category.categoryName,
-                                          style: primaryNormalTextStyle,
-                                          minFontSize: 16),
+                                      AutoSizeText(
+                                        state.customer.firstName,
+                                        style: primaryNormalTextStyle,
+                                        minFontSize: 16,
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -132,7 +136,7 @@ class AddCustomerMovementPage extends StatelessWidget {
                               Container(
                                 width: 250,
                                 child: TextFormField(
-                                  controller: state.movementValueTextController,
+                                  controller: state.movementValueController,
                                   cursorColor: Colors.black,
                                   decoration: InputDecoration(
                                     labelText: 'Hareket Tutari',
@@ -184,10 +188,9 @@ class AddCustomerMovementPage extends StatelessWidget {
                               ElevatedButton(
                                 onPressed: () {
                                   thisContext
-                                      .read<AddCategoryMovementCubit>()
-                                      .createNewCategoryMovement();
+                                      .read<AddCustomerMovementCubit>()
+                                      .createNewCustomerMovement();
                                   context.read<AppCubit>().navigateToPage(0);
-                                  debugPrint(state.category.categoryName);
                                 },
                                 child: AutoSizeText(
                                   'Hareket Ekle',
@@ -212,7 +215,7 @@ class AddCustomerMovementPage extends StatelessWidget {
               ),
             );
           }
-          if (state is AddCategoryMovementTemplateState) {
+          if (state is AddCustomerMovementTemplateState) {
             return Container(
               child: Column(
                 children: [
@@ -235,7 +238,7 @@ class AddCustomerMovementPage extends StatelessWidget {
                             size: 32,
                           ),
                           label: AutoSizeText(
-                            'Kategori Hareketi Ekleyin',
+                            'Kisi Hareketi Ekleyin',
                             minFontSize: 36,
                             style: secondryMediumTextStyle,
                           ),
@@ -264,7 +267,7 @@ class AddCustomerMovementPage extends StatelessWidget {
                                     return AlertDialog(
                                       title: Center(
                                         child: Text(
-                                          'Kategori Sec',
+                                          'Kisi Sec',
                                           style: secondryMediumTextStyle,
                                         ),
                                       ),
@@ -273,7 +276,7 @@ class AddCustomerMovementPage extends StatelessWidget {
                                           width: 500,
                                           height: 500,
                                           child: GridView.builder(
-                                            itemCount: state.categories.length,
+                                            itemCount: state.customers.length,
                                             gridDelegate:
                                                 const SliverGridDelegateWithFixedCrossAxisCount(
                                               crossAxisCount: 2,
@@ -283,21 +286,22 @@ class AddCustomerMovementPage extends StatelessWidget {
                                             itemBuilder:
                                                 (BuildContext newContext,
                                                     int index) {
-                                              CategoryModel categoryModel =
-                                                  state.categories[index];
+                                              CustomerModel customerModel =
+                                                  state.customers[index];
                                               return InkWell(
                                                 onTap: () async {
                                                   thisContext
                                                       .read<
-                                                          AddCategoryMovementCubit>()
-                                                      .emitCategory(index);
+                                                          AddCustomerMovementCubit>()
+                                                      .emitCustomer(
+                                                          customerModel);
                                                   Navigator.pop(thisContext);
                                                 },
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     color: ColorConverter
                                                         .convertColorFromString(
-                                                            categoryModel
+                                                            customerModel
                                                                 .containerColor),
                                                     borderRadius:
                                                         BorderRadius.circular(
@@ -312,8 +316,8 @@ class AddCustomerMovementPage extends StatelessWidget {
                                                         Icon(
                                                           IconHelperPackage
                                                                   .icons[
-                                                              categoryModel
-                                                                  .categoryIconIndex],
+                                                              customerModel
+                                                                  .customerIconIndex],
                                                           size: 64,
                                                           color: Colors.white,
                                                         ),
@@ -321,8 +325,8 @@ class AddCustomerMovementPage extends StatelessWidget {
                                                           height: 10,
                                                         ),
                                                         AutoSizeText(
-                                                            categoryModel
-                                                                .categoryName,
+                                                            customerModel
+                                                                .firstName,
                                                             style:
                                                                 primaryNormalTextStyle,
                                                             minFontSize: 16),
@@ -331,7 +335,6 @@ class AddCustomerMovementPage extends StatelessWidget {
                                                   ),
                                                 ),
                                               );
-                                              ;
                                             },
                                           ),
                                         ),
@@ -363,7 +366,7 @@ class AddCustomerMovementPage extends StatelessWidget {
                                         height: 10,
                                       ),
                                       AutoSizeText(
-                                        'Kategori Ekle',
+                                        'Kisi Ekle',
                                         style: secondryNormalTextStyle,
                                         minFontSize: 16,
                                       ),
