@@ -5,6 +5,8 @@ import 'package:budget_app/cubits/allMovementsCubit/allMovement_cubit.dart';
 import 'package:budget_app/cubits/allMovementsCubit/allMovement_state.dart';
 import 'package:budget_app/helper/color_converter.dart';
 import 'package:budget_app/helper/icon_package.dart';
+import 'package:budget_app/models/categoryModel/category_model.dart';
+import 'package:budget_app/models/customerModel/customer_model.dart';
 import 'package:budget_app/models/movementModel/movement_model.dart';
 import 'package:budget_app/models/userModel/user_model.dart';
 import 'package:budget_app/repositories/user_repository.dart';
@@ -23,37 +25,35 @@ class AllMovementsPage extends StatelessWidget {
     UserRepository userRepository = context.read<UserRepository>();
 
     String? selectedValue;
-    List<String> items = [
-      'Item1',
-      'Item2',
-      'Item3',
-      'Item4',
-      'Item5',
-      'Item6',
-      'Item7',
-      'Item8',
+    String? selectedValue2;
+    List<String> categories = [];
+    List<String> customers = [];
+    List<String> sortList = [
+      'En Yuksek Fiyat',
+      'En Dusuk Fiyat',
+      'En Yeniler',
+      'En Eskiler'
     ];
 
-    List<Map<String, dynamic>> categories = [
-      {'id': 0, 'text': 'Maaslar'},
-      {'id': 1, 'text': 'Faturalar'},
-      {'id': 2, 'text': 'Vergiler'},
-      {'id': 3, 'text': 'Malzemeler'},
-      {'id': 4, 'text': 'Harcamalar'},
-    ];
     return BlocProvider(
       create: (context) => AllMovementCubit(userRepository: userRepository),
       child: BlocBuilder<AllMovementCubit, AllMovementsState>(
         builder: (context, state) {
           if (state is AllMovementsLoadingState) {
-            return Container(
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
+            return const Center(
+              child: CircularProgressIndicator(),
             );
           }
           if (state is AllMovementsLoadedState) {
-            UserModel userModel = state.userModel;
+            categories.clear();
+            customers.clear();
+            List<MovementModel> movements = state.movements;
+            for (CategoryModel category in state.allCategories) {
+              categories.add(category.categoryName);
+            }
+            for (CustomerModel customer in state.allCustomers) {
+              customers.add(customer.firstName);
+            }
             return Container(
               child: Column(
                 children: [
@@ -72,41 +72,8 @@ class AllMovementsPage extends StatelessWidget {
                     width: double.infinity,
                     padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Row(
-                          children: [
-                            InkWell(
-                              onTap: () {},
-                              child: Container(
-                                height: 30,
-                                width: 30,
-                                decoration: BoxDecoration(
-                                  color: buttonColor,
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                child: const Center(
-                                    child: FaIcon(FontAwesomeIcons.caretLeft)),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: Container(
-                                height: 30,
-                                width: 30,
-                                decoration: BoxDecoration(
-                                  color: buttonColor,
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                child: const Center(
-                                    child: FaIcon(FontAwesomeIcons.caretRight)),
-                              ),
-                            ),
-                          ],
-                        ),
                         Container(
                           height: 60,
                           width: 250,
@@ -145,13 +112,14 @@ class AllMovementsPage extends StatelessWidget {
                             child: Container(
                               padding:
                                   const EdgeInsets.only(right: 50.0, top: 20.0),
-                              child: userModel.allMovements.isNotEmpty
+                              child: movements.isNotEmpty
                                   ? ListView.builder(
-                                      itemCount: userModel.allMovements.length,
+                                      controller: state.scrollController,
+                                      itemCount: movements.length,
                                       itemBuilder:
                                           (BuildContext context, int index) {
-                                        MovementModel movementModel =
-                                            userModel.allMovements[index];
+                                        MovementModel movementModel = movements[
+                                            (movements.length - 1) - index];
                                         return MovementComp(
                                           dateTime:
                                               DateTimeHelper.epochToDataTime(
@@ -186,9 +154,11 @@ class AllMovementsPage extends StatelessWidget {
                                       })
                                   : Container(
                                       child: Center(
-                                          child: Text(state
-                                              .userModel.allMovements.length
-                                              .toString()))),
+                                        child: Text(
+                                          state.movements.length.toString(),
+                                        ),
+                                      ),
+                                    ),
                             ),
                           ),
                           Flexible(
@@ -203,155 +173,107 @@ class AllMovementsPage extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  AutoSizeText(
-                                    'Filtre',
-                                    style: secondryNormalTextStyle,
-                                    minFontSize: 24,
-                                  ),
-                                  CustomDropdownButton2(
-                                    hint: 'Select Item',
-                                    dropdownItems: items,
-                                    value: selectedValue,
-                                    onChanged: (value) {},
-                                  ),
-                                  AutoSizeText(
-                                    'Tarih',
-                                    style: secondryNormalTextStyle,
-                                    minFontSize: 24,
-                                  ),
-                                  CustomDropdownButton2(
-                                    hint: 'Select Item',
-                                    dropdownItems: items,
-                                    value: selectedValue,
-                                    onChanged: (value) {},
-                                  ),
-                                  AutoSizeText(
-                                    'Kategori',
-                                    style: secondryNormalTextStyle,
-                                    minFontSize: 24,
-                                  ),
-                                  Flexible(
-                                    child: Container(
-                                      child: GridView.builder(
-                                        shrinkWrap: true,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 20.0),
-                                        itemCount: categories.length,
-                                        gridDelegate:
-                                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 2,
-                                          childAspectRatio: 3,
-                                        ),
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          return Row(
-                                            children: [
-                                              Checkbox(
-                                                value: false,
-                                                checkColor: secondaryLightColor,
-                                                focusColor: secondaryLightColor,
-                                                onChanged: (value) {},
-                                              ),
-                                              Expanded(
-                                                child: AutoSizeText(
-                                                  categories[index]['text'],
-                                                  style:
-                                                      secondryNormalTextStyle,
-                                                  minFontSize: 14,
-                                                  overflow:
-                                                      TextOverflow.visible,
-                                                ),
-                                              )
-                                            ],
-                                          );
-                                        },
+                                  Column(
+                                    children: [
+                                      AutoSizeText(
+                                        'Sirala',
+                                        style: secondryNormalTextStyle,
+                                        minFontSize: 24,
                                       ),
-                                    ),
+                                      Builder(builder: (newContext) {
+                                        return CustomDropdownButton2(
+                                          hint: 'Siralama Tipi',
+                                          dropdownItems: sortList,
+                                          value: selectedValue,
+                                          onChanged: (sortName) {
+                                            int index =
+                                                sortList.indexOf(sortName!);
+                                            if (index == 0) {
+                                              newContext
+                                                  .read<AllMovementCubit>()
+                                                  .sortByHigherOrder();
+                                            }
+                                            if (index == 1) {
+                                              newContext
+                                                  .read<AllMovementCubit>()
+                                                  .sortByLowerOrder();
+                                            }
+                                            if (index == 2) {
+                                              newContext
+                                                  .read<AllMovementCubit>()
+                                                  .sortByHigherTime();
+                                            }
+                                            if (index == 3) {
+                                              newContext
+                                                  .read<AllMovementCubit>()
+                                                  .sortByLowerTime();
+                                            }
+                                          },
+                                        );
+                                      }),
+                                    ],
                                   ),
-                                  Flexible(
-                                    child: Container(
-                                      child: Column(
-                                        children: [
-                                          AutoSizeText(
-                                            'Fiyat Araligi',
-                                            style: secondryNormalTextStyle,
-                                            minFontSize: 24,
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 20.0),
-                                            child: Row(
-                                              children: [
-                                                Flexible(
-                                                  child: TextFormField(
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      decoration:
-                                                          InputDecoration(
-                                                        border:
-                                                            InputBorder.none,
-                                                        suffixText: 'TL',
-                                                        labelText: 'Baslangic',
-                                                        labelStyle:
-                                                            secondryNormalTextStyle,
-                                                        enabledBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              const BorderSide(
-                                                            color: Colors.grey,
-                                                            width: 2,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10.0),
-                                                        ),
-                                                      )),
-                                                ),
-                                                const SizedBox(width: 20.0),
-                                                Flexible(
-                                                  child: TextFormField(
-                                                    textAlign: TextAlign.center,
-                                                    decoration: InputDecoration(
-                                                      border: InputBorder.none,
-                                                      suffixText: 'TL',
-                                                      labelText: 'Bitis',
-                                                      labelStyle:
-                                                          secondryNormalTextStyle,
-                                                      enabledBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide:
-                                                            const BorderSide(
-                                                          color: Colors.grey,
-                                                          width: 2,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10.0),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          SfSlider(
-                                            min: 0.0,
-                                            max: 100.0,
-                                            value: 10,
-                                            interval: 20,
-                                            showTicks: true,
-                                            showLabels: true,
-                                            enableTooltip: true,
-                                            minorTicksPerInterval: 1,
-                                            inactiveColor: buttonColor,
-                                            activeColor: secondaryLightColor,
-                                            onChanged: (dynamic value) {},
-                                          ),
-                                        ],
+                                  Column(
+                                    children: [
+                                      AutoSizeText(
+                                        'Kategori',
+                                        style: secondryNormalTextStyle,
+                                        minFontSize: 24,
                                       ),
-                                    ),
-                                  )
+                                      Builder(builder: (newContext) {
+                                        return CustomDropdownButton2(
+                                          hint: 'Kategori Sec',
+                                          dropdownItems: categories,
+                                          value: selectedValue,
+                                          onChanged: (categoryName) {
+                                            newContext
+                                                .read<AllMovementCubit>()
+                                                .getSelectedCategoryMovements(
+                                                    categoryName!);
+                                          },
+                                        );
+                                      }),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      AutoSizeText(
+                                        'Kisi',
+                                        style: secondryNormalTextStyle,
+                                        minFontSize: 24,
+                                      ),
+                                      Builder(builder: (newContext) {
+                                        return CustomDropdownButton2(
+                                          hint: 'Kisi Sec',
+                                          dropdownItems: customers,
+                                          value: selectedValue2,
+                                          onChanged: (customerName) {
+                                            newContext
+                                                .read<AllMovementCubit>()
+                                                .getSelectedCustomerMovements(
+                                                  customerName!,
+                                                );
+                                          },
+                                        );
+                                      }),
+                                    ],
+                                  ),
+                                  Builder(builder: (newContext) {
+                                    return ElevatedButton(
+                                      onPressed: () {
+                                        newContext
+                                            .read<AllMovementCubit>()
+                                            .initState();
+                                      },
+                                      child: AutoSizeText('Varsayilana Don',
+                                          minFontSize: 18,
+                                          style: primaryNormalTextStyle),
+                                      style: ElevatedButton.styleFrom(
+                                        primary: primaryLightColor,
+                                        minimumSize: const Size(100, 50),
+                                      ),
+                                    );
+                                  })
                                 ],
                               ),
                             ),

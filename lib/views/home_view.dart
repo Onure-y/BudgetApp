@@ -226,7 +226,7 @@ class _NavBarLinksState extends State<_NavBarLinks> {
   bool isHovering = false;
 
   _NavBarLinksState(this.index);
-  final index;
+  final int index;
 
   @override
   Widget build(BuildContext context) {

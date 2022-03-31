@@ -5,6 +5,7 @@ import 'package:budget_app/constant.dart';
 import 'package:budget_app/cubits/appCubit/app_cubit.dart';
 import 'package:budget_app/cubits/homePageCubit/homePage_cubit.dart';
 import 'package:budget_app/cubits/homePageCubit/homePage_state.dart';
+import 'package:budget_app/cubits/navigationCubit/navigation_cubit.dart';
 import 'package:budget_app/helper/color_converter.dart';
 import 'package:budget_app/helper/icon_package.dart';
 import 'package:budget_app/helper/timer_package.dart';
@@ -201,19 +202,6 @@ class MainPage extends StatelessWidget {
                                                             style:
                                                                 secondryMediumTextStyle,
                                                           ),
-                                                          TextButton(
-                                                            onPressed: () {
-                                                              debugPrint(state
-                                                                  .incomeDeg
-                                                                  .toString());
-                                                            },
-                                                            child: AutoSizeText(
-                                                              'Tumunu Gor',
-                                                              minFontSize: 18,
-                                                              style:
-                                                                  semiThinNormalTextStyle,
-                                                            ),
-                                                          ),
                                                         ],
                                                       ),
                                                       Flexible(
@@ -238,9 +226,7 @@ class MainPage extends StatelessWidget {
                                                                       .allMovements
                                                                       .isEmpty
                                                                   ? '*******'
-                                                                  : state
-                                                                      .incomeValue
-                                                                      .toString(),
+                                                                  : '${state.incomeValue.toString()} TL',
                                                               style:
                                                                   secondryNormalTextStyle,
                                                               minFontSize: 24,
@@ -268,15 +254,6 @@ class MainPage extends StatelessWidget {
                                                             style:
                                                                 secondryMediumTextStyle,
                                                           ),
-                                                          TextButton(
-                                                            onPressed: () {},
-                                                            child: AutoSizeText(
-                                                              'Tumunu Gor',
-                                                              minFontSize: 18,
-                                                              style:
-                                                                  semiThinNormalTextStyle,
-                                                            ),
-                                                          ),
                                                         ],
                                                       ),
                                                       Flexible(
@@ -301,9 +278,7 @@ class MainPage extends StatelessWidget {
                                                                       .allMovements
                                                                       .isEmpty
                                                                   ? '*******'
-                                                                  : state
-                                                                      .expenseValue
-                                                                      .toString(),
+                                                                  : '${state.expenseValue.toString()} TL',
                                                               style:
                                                                   secondryNormalTextStyle,
                                                               minFontSize: 24,
@@ -331,15 +306,6 @@ class MainPage extends StatelessWidget {
                                                             style:
                                                                 secondryMediumTextStyle,
                                                           ),
-                                                          TextButton(
-                                                            onPressed: () {},
-                                                            child: AutoSizeText(
-                                                              'Tumunu Gor',
-                                                              minFontSize: 18,
-                                                              style:
-                                                                  semiThinNormalTextStyle,
-                                                            ),
-                                                          ),
                                                         ],
                                                       ),
                                                       Flexible(
@@ -364,9 +330,7 @@ class MainPage extends StatelessWidget {
                                                                       .allMovements
                                                                       .isEmpty
                                                                   ? '*******'
-                                                                  : state
-                                                                      .budgetValue
-                                                                      .toString(),
+                                                                  : '${state.budgetValue.toString()} TL',
                                                               style:
                                                                   secondryNormalTextStyle,
                                                               minFontSize: 24,
@@ -515,17 +479,13 @@ class MainPage extends StatelessWidget {
                                                     ),
                                                     TextButton(
                                                       onPressed: () {
-                                                        debugPrint(
-                                                          state
-                                                              .monthlyIncomeMovements[
-                                                                  1]
-                                                              .x
-                                                              .toString(),
-                                                        );
-                                                        debugPrint(state
-                                                            .monthlyIncomeMovements
-                                                            .length
-                                                            .toString());
+                                                        context
+                                                            .read<AppCubit>()
+                                                            .navigateToPage(1);
+                                                        context
+                                                            .read<
+                                                                NavigationCubit>()
+                                                            .changePage(1);
                                                       },
                                                       child: AutoSizeText(
                                                         'Tumunu Gor',
@@ -585,11 +545,17 @@ class MainPage extends StatelessWidget {
                                                                           movementModel
                                                                               .time)
                                                                   .toString(),
-                                                              icon: Icon(IconHelperPackage
-                                                                      .icons[
-                                                                  movementModel
-                                                                      .category
-                                                                      .categoryIconIndex]),
+                                                              icon: Icon(
+                                                                IconHelperPackage
+                                                                    .icons[movementModel
+                                                                        .isCategoryMovement
+                                                                    ? movementModel
+                                                                        .category
+                                                                        .categoryIconIndex
+                                                                    : movementModel
+                                                                        .customer
+                                                                        .customerIconIndex],
+                                                              ),
                                                               movementCategoryColor:
                                                                   ColorConverter
                                                                       .convertColorFromString(
