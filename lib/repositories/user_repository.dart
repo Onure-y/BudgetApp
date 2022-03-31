@@ -1,4 +1,5 @@
 import 'package:budget_app/constant.dart';
+import 'package:budget_app/helper/timer_package.dart';
 import 'package:budget_app/models/categoryModel/category_model.dart';
 import 'package:budget_app/models/customerModel/customer_model.dart';
 import 'package:budget_app/models/movementModel/movement_model.dart';
@@ -123,12 +124,25 @@ class UserRepository {
 
   Future createTestIncomeMovement() async {
     UserModel userModel = await getUserData();
-    int forwardTime = DateTime.utc(2022, 3, 27).millisecondsSinceEpoch;
+    int forwardTime = DateTime.utc(2022, 3, 31).millisecondsSinceEpoch;
     await createMovementWithCategory(
         categoryModel: userModel.allCategories[0],
         movementText: 'aaaa',
-        movementValue: 200,
+        movementValue: 870,
         time: forwardTime);
+  }
+
+  Future<List<MovementModel>> getUserCurrentYearMovements() async {
+    UserModel userModel = await getUserData();
+    List<MovementModel> currentYearMovementList = [];
+    int currentYear = TimerPackage.getCurrentYear();
+    for (MovementModel movement in userModel.allMovements) {
+      if (DateTime.fromMillisecondsSinceEpoch(movement.time).year ==
+          currentYear) {
+        currentYearMovementList.add(movement);
+      }
+    }
+    return currentYearMovementList;
   }
 
   Future createNewClient({required CustomerModel customerModel}) async {
