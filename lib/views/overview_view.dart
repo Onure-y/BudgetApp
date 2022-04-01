@@ -20,12 +20,6 @@ class OverviewPage extends StatelessWidget {
     UserRepository userRepository = context.read<UserRepository>();
     TooltipBehavior tooltipBehavior = TooltipBehavior(enable: true);
     String? selectedValue;
-    List<String> items = [
-      'Ocak',
-      'Subat',
-      'Mart',
-      'Nisan',
-    ];
 
     List<OverviewChartModel> data2 = [
       OverviewChartModel(month: 0, moneyValue: 100),
@@ -55,7 +49,7 @@ class OverviewPage extends StatelessWidget {
                   width: double.infinity,
                   color: lightColor,
                   child: AutoSizeText(
-                    'Work In Progress',
+                    'Genel Bakis',
                     minFontSize: 36,
                     style: secondryMediumTextStyle,
                   ),
@@ -81,12 +75,6 @@ class OverviewPage extends StatelessWidget {
                                               'Genel Hareket Dagilimi',
                                               style: secondryMediumTextStyle,
                                               minFontSize: 24,
-                                            ),
-                                            CustomDropdownButton2(
-                                              hint: 'Select Item',
-                                              dropdownItems: items,
-                                              value: selectedValue,
-                                              onChanged: (value) {},
                                             ),
                                           ],
                                         ),
@@ -298,7 +286,7 @@ class OverviewPage extends StatelessWidget {
                                   enableTooltip: true,
                                   color: expenseColor,
                                   name: 'Gider',
-                                  dataSource: data2,
+                                  dataSource: state.yearlyExpenseMovements,
                                   xValueMapper: (OverviewChartModel data, _) =>
                                       TimerPackage.months[data.month],
                                   yValueMapper: (OverviewChartModel data, _) =>

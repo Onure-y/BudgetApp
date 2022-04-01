@@ -19,6 +19,10 @@ class AllMovementCubit extends Cubit<AllMovementsState> {
   List<CategoryModel> allCategories = [];
   List<CustomerModel> allCustomers = [];
   List<MovementModel> movements = [];
+
+  final TextEditingController sarchTextEditingController =
+      TextEditingController();
+
   Future initState() async {
     await getAllMovements();
     await getUserCategories();
@@ -33,6 +37,7 @@ class AllMovementCubit extends Cubit<AllMovementsState> {
         allCustomers: allCustomers,
         scrollController: scrollController,
         movements: movements,
+        sarchTextEditingController: sarchTextEditingController,
       ),
     );
   }
@@ -124,5 +129,29 @@ class AllMovementCubit extends Cubit<AllMovementsState> {
     sortList.sort((a, b) => b.time.compareTo(a.time));
     movements = sortList;
     emitPage();
+  }
+
+  Future searchForMovement(String searchString) async {
+    List<MovementModel> allMovements = await getMovementsData();
+    List<MovementModel> referanceList = [];
+    List<MovementModel> searchList = [];
+    // String searchText = sarchTextEditingController.text;
+    for (MovementModel movement in allMovements) {
+      referanceList.add(movement);
+    }
+    for (MovementModel movement in allMovements) {
+      if (movement.movementText.toLowerCase().contains(searchString)) {
+        searchList.add(movement);
+        debugPrint(movement.movementText);
+      }
+    }
+    movements = searchList;
+    emitPage();
+  }
+
+  Future deleteMovement(int index) async {
+    debugPrint(index.toString());
+    await userRepository.deleteMovement(index);
+    await initState();
   }
 }

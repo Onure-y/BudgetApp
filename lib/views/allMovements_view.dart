@@ -15,7 +15,6 @@ import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class AllMovementsPage extends StatelessWidget {
   const AllMovementsPage({Key? key}) : super(key: key);
@@ -85,20 +84,28 @@ class AllMovementsPage extends StatelessWidget {
                           child: Row(
                             children: [
                               const FaIcon(FontAwesomeIcons.search),
-                              const SizedBox(width: 10),
                               Flexible(
-                                child: TextFormField(
-                                  cursorColor: secondaryDarkColor,
-                                  style: secondryNormalTextStyle,
-                                  decoration: const InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: 'Search',
-                                  ),
-                                ),
+                                child: Builder(builder: (newContext) {
+                                  return TextFormField(
+                                    onChanged: (String searchText) {
+                                      newContext
+                                          .read<AllMovementCubit>()
+                                          .searchForMovement(searchText);
+                                    },
+                                    controller:
+                                        state.sarchTextEditingController,
+                                    cursorColor: secondaryDarkColor,
+                                    style: secondryNormalTextStyle,
+                                    decoration: const InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: 'Ara',
+                                    ),
+                                  );
+                                }),
                               ),
                             ],
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -120,43 +127,153 @@ class AllMovementsPage extends StatelessWidget {
                                           (BuildContext context, int index) {
                                         MovementModel movementModel = movements[
                                             (movements.length - 1) - index];
-                                        return MovementComp(
-                                          dateTime:
-                                              DateTimeHelper.epochToDataTime(
-                                                      movementModel.time)
+                                        return Builder(builder: (newContext) {
+                                          return InkWell(
+                                            onTap: () {
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    title: Center(
+                                                      child: Text(
+                                                        'Uyari',
+                                                        style:
+                                                            secondryMediumTextStyle,
+                                                      ),
+                                                    ),
+                                                    content:
+                                                        SingleChildScrollView(
+                                                      child: Container(
+                                                        height: 100,
+                                                        width: 400,
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceAround,
+                                                          children: [
+                                                            AutoSizeText(
+                                                              'Hareketi Silmek Istediginize Eminmisiniz ? ',
+                                                              style:
+                                                                  secondryNormalTextStyle,
+                                                              minFontSize: 18,
+                                                            ),
+                                                            Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                ElevatedButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  },
+                                                                  child:
+                                                                      AutoSizeText(
+                                                                    'Iptal',
+                                                                    style:
+                                                                        primaryNormalTextStyle,
+                                                                    minFontSize:
+                                                                        14,
+                                                                  ),
+                                                                  style: ElevatedButton
+                                                                      .styleFrom(
+                                                                    primary:
+                                                                        incomeColor,
+                                                                    minimumSize:
+                                                                        const Size(
+                                                                      125,
+                                                                      50,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                const SizedBox(
+                                                                  width: 50,
+                                                                ),
+                                                                ElevatedButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    newContext
+                                                                        .read<
+                                                                            AllMovementCubit>()
+                                                                        .deleteMovement((movements.length -
+                                                                                1) -
+                                                                            index);
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  },
+                                                                  child:
+                                                                      AutoSizeText(
+                                                                    'Sil',
+                                                                    style:
+                                                                        primaryNormalTextStyle,
+                                                                    minFontSize:
+                                                                        14,
+                                                                  ),
+                                                                  style: ElevatedButton
+                                                                      .styleFrom(
+                                                                    primary:
+                                                                        expenseColor,
+                                                                    minimumSize:
+                                                                        const Size(
+                                                                      125,
+                                                                      50,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              );
+                                            },
+                                            child: MovementComp(
+                                              dateTime: DateTimeHelper
+                                                      .epochToDataTime(
+                                                          movementModel.time)
                                                   .toString(),
-                                          icon: Icon(IconHelperPackage.icons[
-                                              movementModel.isCategoryMovement
+                                              icon: Icon(IconHelperPackage
+                                                  .icons[movementModel
+                                                      .isCategoryMovement
                                                   ? movementModel.category
                                                       .categoryIconIndex
                                                   : movementModel.customer
                                                       .customerIconIndex]),
-                                          movementCategoryColor: ColorConverter
-                                              .convertColorFromString(
-                                            movementModel.isCategoryMovement
-                                                ? movementModel
-                                                    .category.containerColor
-                                                : movementModel
-                                                    .customer.containerColor,
-                                          ),
-                                          movementCategoryName:
-                                              movementModel.isCategoryMovement
-                                                  ? movementModel
-                                                      .category.categoryName
-                                                  : movementModel
-                                                      .customer.firstName,
-                                          movementName:
-                                              movementModel.movementText,
-                                          movementValue: movementModel
-                                              .movementValue
-                                              .toString(),
-                                        );
+                                              movementCategoryColor:
+                                                  ColorConverter
+                                                      .convertColorFromString(
+                                                movementModel.isCategoryMovement
+                                                    ? movementModel
+                                                        .category.containerColor
+                                                    : movementModel.customer
+                                                        .containerColor,
+                                              ),
+                                              movementCategoryName:
+                                                  movementModel
+                                                          .isCategoryMovement
+                                                      ? movementModel
+                                                          .category.categoryName
+                                                      : movementModel
+                                                          .customer.firstName,
+                                              movementName:
+                                                  movementModel.movementText,
+                                              movementValue: movementModel
+                                                  .movementValue
+                                                  .toString(),
+                                            ),
+                                          );
+                                        });
                                       })
-                                  : Container(
-                                      child: Center(
-                                        child: Text(
-                                          state.movements.length.toString(),
-                                        ),
+                                  : Center(
+                                      child: AutoSizeText(
+                                        'Malesef Istediginiz Hareketi Bulamadik',
+                                        style: secondryMediumTextStyle,
+                                        minFontSize: 24,
                                       ),
                                     ),
                             ),

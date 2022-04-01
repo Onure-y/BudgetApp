@@ -23,14 +23,21 @@ class AllMovementsLoadedState extends AllMovementsState {
     required this.scrollController,
     required this.allCustomers,
     required this.allCategories,
+    required this.sarchTextEditingController,
   });
 
   final List<MovementModel> movements;
   final ScrollController scrollController;
   final List<CustomerModel> allCustomers;
   final List<CategoryModel> allCategories;
+  final TextEditingController sarchTextEditingController;
 
   @override
-  List<Object?> get props =>
-      [movements, scrollController, allCustomers, allCategories];
+  List<Object?> get props => [
+        movements,
+        scrollController,
+        allCustomers,
+        allCategories,
+        sarchTextEditingController
+      ];
 }
