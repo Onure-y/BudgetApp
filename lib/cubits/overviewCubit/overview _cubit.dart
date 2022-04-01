@@ -24,11 +24,13 @@ class OverviewCubit extends Cubit<OverviewPageState> {
     await calculateYearlyIncomeAndExpense();
     calculateYearlyIncomeDeg();
     await getCurrentYearyIncomeList();
+    await getCurrentYearlyExpenseList();
     emit(OverviewPageLoadedState(
       yearlyIncome: yearlyIncome,
       yearlyExpense: yearlyExpense,
       yearlyIncomeDeg: yearlyIncomeDeg,
       yearlyIncomeMovements: yearlyIncomeMovements,
+      yearlyExpenseMovements: yearlyExpenseMovements,
     ));
   }
 
@@ -91,6 +93,42 @@ class OverviewCubit extends Cubit<OverviewPageState> {
           emptyChartData.month == 13
               ? {}
               : yearlyIncomeMovements.add(emptyChartData);
+        }
+      }
+    }
+  }
+
+  Future getCurrentYearlyExpenseList() async {
+    List<MovementModel> allMovements = await getUserYearlyMovements();
+    DateTime currentDatTime = DateTime.now();
+
+    for (MovementModel movement in allMovements) {
+      if (movement.movementValue < 0) {
+        if (yearlyExpenseMovements.isEmpty) {
+          int month = DateTime.fromMillisecondsSinceEpoch(movement.time).month;
+          yearlyExpenseMovements.add(
+            OverviewChartModel(
+              month: month - 1,
+              moneyValue: movement.movementValue,
+            ),
+          );
+        } else {
+          OverviewChartModel emptyChartData =
+              OverviewChartModel(month: 13, moneyValue: 0);
+          if (yearlyExpenseMovements.last.month ==
+              (DateTime.fromMillisecondsSinceEpoch(movement.time).month - 1)) {
+            yearlyExpenseMovements.last.moneyValue =
+                yearlyExpenseMovements.last.moneyValue + movement.movementValue;
+          } else {
+            emptyChartData = OverviewChartModel(
+              month:
+                  DateTime.fromMillisecondsSinceEpoch(movement.time).month - 1,
+              moneyValue: movement.movementValue,
+            );
+          }
+          emptyChartData.month == 13
+              ? {}
+              : yearlyExpenseMovements.add(emptyChartData);
         }
       }
     }

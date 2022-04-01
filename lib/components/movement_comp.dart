@@ -47,6 +47,7 @@ class MovementComp extends StatelessWidget {
                             movementName,
                             style: secondryNormalTextStyle,
                             minFontSize: 22,
+                            overflow: TextOverflow.ellipsis,
                           ),
                           AutoSizeText(
                             dateTime,

@@ -19,16 +19,19 @@ class OverviewPageLoadedState extends OverviewPageState {
     required this.yearlyExpense,
     required this.yearlyIncomeDeg,
     required this.yearlyIncomeMovements,
+    required this.yearlyExpenseMovements,
   });
   final double yearlyIncome;
   final double yearlyExpense;
   final double yearlyIncomeDeg;
   final List<OverviewChartModel> yearlyIncomeMovements;
+  final List<OverviewChartModel> yearlyExpenseMovements;
   @override
   List<Object?> get props => [
         yearlyIncome,
         yearlyExpense,
         yearlyIncomeDeg,
         yearlyIncomeMovements,
+        yearlyExpenseMovements,
       ];
 }
