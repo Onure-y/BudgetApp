@@ -157,9 +157,9 @@ class UserRepository {
     userBox.put(userDataKey, userData);
   }
 
-  Future deleteMovement(int index) async {
+  Future deleteMovement(MovementModel movement) async {
     UserModel userData = await getUserData();
-    userData.allMovements.removeAt(index);
+    userData.allMovements.remove(movement);
     userBox.put(userDataKey, userData);
   }
 

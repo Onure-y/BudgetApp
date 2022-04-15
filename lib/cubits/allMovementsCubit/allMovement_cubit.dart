@@ -149,9 +149,8 @@ class AllMovementCubit extends Cubit<AllMovementsState> {
     emitPage();
   }
 
-  Future deleteMovement(int index) async {
-    debugPrint(index.toString());
-    await userRepository.deleteMovement(index);
+  Future deleteMovement(MovementModel movement) async {
+    await userRepository.deleteMovement(movement);
     await initState();
   }
 }

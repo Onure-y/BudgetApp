@@ -8,7 +8,6 @@ import 'package:budget_app/cubits/homePageCubit/homePage_state.dart';
 import 'package:budget_app/cubits/navigationCubit/navigation_cubit.dart';
 import 'package:budget_app/helper/color_converter.dart';
 import 'package:budget_app/helper/icon_package.dart';
-import 'package:budget_app/helper/timer_package.dart';
 import 'package:budget_app/models/movementModel/movement_model.dart';
 import 'package:budget_app/models/userModel/user_model.dart';
 import 'package:budget_app/repositories/user_repository.dart';
@@ -87,7 +86,8 @@ class MainPage extends StatelessWidget {
                                                                 ? '*******'
                                                                 : state
                                                                     .budgetValue
-                                                                    .toString(),
+                                                                    .toStringAsFixed(
+                                                                        2),
                                                             minFontSize: 24,
                                                             style:
                                                                 secondryMediumTextStyle,
@@ -226,7 +226,7 @@ class MainPage extends StatelessWidget {
                                                                       .allMovements
                                                                       .isEmpty
                                                                   ? '*******'
-                                                                  : '${state.incomeValue.toString()} TL',
+                                                                  : '${state.incomeValue.toStringAsFixed(2)} TL',
                                                               style:
                                                                   secondryNormalTextStyle,
                                                               minFontSize: 24,
@@ -278,7 +278,7 @@ class MainPage extends StatelessWidget {
                                                                       .allMovements
                                                                       .isEmpty
                                                                   ? '*******'
-                                                                  : '${state.expenseValue.toString()} TL',
+                                                                  : '${state.expenseValue.toStringAsFixed(2)} TL',
                                                               style:
                                                                   secondryNormalTextStyle,
                                                               minFontSize: 24,
@@ -330,7 +330,7 @@ class MainPage extends StatelessWidget {
                                                                       .allMovements
                                                                       .isEmpty
                                                                   ? '*******'
-                                                                  : '${state.budgetValue.toString()} TL',
+                                                                  : '${state.budgetValue.toStringAsFixed(2)} TL',
                                                               style:
                                                                   secondryNormalTextStyle,
                                                               minFontSize: 24,
@@ -376,7 +376,7 @@ class MainPage extends StatelessWidget {
                                                       'Tüm bir ay boyunca yapilan harcamalari gösterir',
                                                       minFontSize: 14,
                                                       style:
-                                                          thinNormalTextStyle,
+                                                          semiThinNormalTextStyle,
                                                     ),
                                                   ],
                                                 ),
@@ -473,7 +473,7 @@ class MainPage extends StatelessWidget {
                                                           'Yapilan son harcamalar',
                                                           minFontSize: 14,
                                                           style:
-                                                              thinNormalTextStyle,
+                                                              semiThinNormalTextStyle,
                                                         ),
                                                       ],
                                                     ),
@@ -581,7 +581,8 @@ class MainPage extends StatelessWidget {
                                                               movementValue:
                                                                   movementModel
                                                                       .movementValue
-                                                                      .toString(),
+                                                                      .toStringAsFixed(
+                                                                          2),
                                                             );
                                                           }),
                                                 )

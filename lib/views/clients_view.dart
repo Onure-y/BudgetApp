@@ -49,37 +49,6 @@ class ClientsPage extends StatelessWidget {
                       padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
                       child: Column(
                         children: [
-                          Row(
-                            children: [
-                              const Spacer(),
-                              Container(
-                                height: 60,
-                                width: 250,
-                                padding:
-                                    const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                                decoration: BoxDecoration(
-                                  color: buttonColor,
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                child: Row(
-                                  children: [
-                                    const FaIcon(FontAwesomeIcons.search),
-                                    const SizedBox(width: 10),
-                                    Flexible(
-                                      child: TextFormField(
-                                        cursorColor: secondaryDarkColor,
-                                        style: secondryNormalTextStyle,
-                                        decoration: const InputDecoration(
-                                          border: InputBorder.none,
-                                          hintText: 'Search',
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
                           const SizedBox(
                             height: 10,
                           ),

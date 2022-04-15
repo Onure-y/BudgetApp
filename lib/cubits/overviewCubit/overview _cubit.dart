@@ -19,6 +19,7 @@ class OverviewCubit extends Cubit<OverviewPageState> {
 
   List<OverviewChartModel> yearlyIncomeMovements = [];
   List<OverviewChartModel> yearlyExpenseMovements = [];
+  List<Map<String, dynamic>> overviewList = [];
 
   Future initCubit() async {
     await calculateYearlyIncomeAndExpense();
