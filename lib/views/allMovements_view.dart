@@ -197,9 +197,8 @@ class AllMovementsPage extends StatelessWidget {
                                                                     newContext
                                                                         .read<
                                                                             AllMovementCubit>()
-                                                                        .deleteMovement((movements.length -
-                                                                                1) -
-                                                                            index);
+                                                                        .deleteMovement(
+                                                                            movementModel);
                                                                     Navigator.pop(
                                                                         context);
                                                                   },
@@ -264,7 +263,7 @@ class AllMovementsPage extends StatelessWidget {
                                                   movementModel.movementText,
                                               movementValue: movementModel
                                                   .movementValue
-                                                  .toString(),
+                                                  .toStringAsFixed(2),
                                             ),
                                           );
                                         });

@@ -22,11 +22,11 @@ const LinearGradient expenseChartGradientColor = LinearGradient(
   colors: [chartExpenseLineColor1, chartExpenseLineColor2],
 );
 
-const Color chartsLineColor1 = Color.fromARGB(200, 181, 142, 204);
-const Color chartsLineColor2 = Color.fromARGB(200, 93, 230, 221);
+const Color chartsLineColor1 = Color.fromARGB(255, 181, 142, 204);
+const Color chartsLineColor2 = Color.fromARGB(255, 93, 230, 221);
 
-const Color chartExpenseLineColor1 = Color.fromARGB(200, 226, 23, 23);
-const Color chartExpenseLineColor2 = Color.fromARGB(200, 165, 106, 106);
+const Color chartExpenseLineColor1 = Color.fromARGB(255, 226, 23, 23);
+const Color chartExpenseLineColor2 = Color.fromARGB(255, 165, 106, 106);
 
 const Color incomeColor = Color(0xff4F75FE);
 const Color secondryIncomeColor = Color(0xff82D3E5);
