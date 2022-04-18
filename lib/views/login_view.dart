@@ -31,16 +31,32 @@ class UserCreatePage extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Container(
-                    height: 75,
-                    width: size.width,
-                    child: Center(
-                      child: AutoSizeText(
-                        'Budget App',
-                        style: primaryMediumTextStyle,
-                        minFontSize: 36,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 50,
+                        width: 50,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/app_icon.png'),
+                          ),
+                        ),
                       ),
-                    ),
+                      const SizedBox(
+                        width: 30,
+                      ),
+                      Container(
+                        height: 75,
+                        child: Center(
+                          child: AutoSizeText(
+                            'HesApp',
+                            style: primaryMediumTextStyle,
+                            minFontSize: 36,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   Flexible(
                     child: Container(

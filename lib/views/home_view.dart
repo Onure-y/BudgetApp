@@ -95,11 +95,25 @@ class HomePage extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  AutoSizeText(
-                    'Budget App',
-                    style: primaryMediumTextStyle,
-                    presetFontSizes: const [28, 22],
-                    maxLines: 1,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        height: 30,
+                        width: 30,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/app_icon.png'),
+                          ),
+                        ),
+                      ),
+                      AutoSizeText(
+                        'HesApp',
+                        style: primaryMediumTextStyle,
+                        presetFontSizes: const [28, 22],
+                        maxLines: 1,
+                      ),
+                    ],
                   ),
                   const SizedBox(
                     height: 20,
