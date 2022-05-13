@@ -36,4 +36,20 @@ class TimerPackage {
     int month = currentDateTime.month;
     return month;
   }
+
+  static int getDemoTime(int timestamp) {
+    DateTime startTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    int lastDemoTime =
+        startTime.add(const Duration(days: 14)).millisecondsSinceEpoch;
+    return lastDemoTime;
+  }
+
+  static int getDifferenceDateTimes(int demoStartTime, int demoEndTime) {
+    DateTime demoStartDateTime =
+        DateTime.fromMillisecondsSinceEpoch(demoStartTime);
+    DateTime demoEndDateTime = DateTime.fromMillisecondsSinceEpoch(demoEndTime);
+    Duration diffrenceDateTime = demoEndDateTime.difference(demoStartDateTime);
+    int diffrenceDay = diffrenceDateTime.inDays;
+    return diffrenceDay;
+  }
 }

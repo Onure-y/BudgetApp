@@ -256,7 +256,7 @@ class AddIncomeCategoryPage extends StatelessWidget {
                             ElevatedButton(
                               onPressed: () {},
                               child: AutoSizeText(
-                                'Iptal Et',
+                                'Gider Hareketi Ekleyin',
                                 style: primaryNormalTextStyle,
                                 minFontSize: 18,
                               ),
@@ -272,16 +272,9 @@ class AddIncomeCategoryPage extends StatelessWidget {
                               width: 50,
                             ),
                             ElevatedButton(
-                              onPressed: () {
-                                context
-                                    .read<AddCategoryCubit>()
-                                    .addIncomeCategoryInToDatabase();
-                                context
-                                    .read<AppCubit>()
-                                    .changeIncomeCategoryPage();
-                              },
+                              onPressed: () {},
                               child: AutoSizeText(
-                                'Kategori Ekle',
+                                'Gelir Hareketi Ekleyin',
                                 style: primaryNormalTextStyle,
                                 minFontSize: 18,
                               ),

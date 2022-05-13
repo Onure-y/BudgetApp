@@ -5,6 +5,9 @@ import 'package:budget_app/cubits/appCubit/app_cubit.dart';
 import 'package:budget_app/cubits/appCubit/app_cubit_state.dart';
 import 'package:budget_app/cubits/navigationCubit/navigation_cubit.dart';
 import 'package:budget_app/cubits/navigationCubit/navigation_cubit_state.dart';
+import 'package:budget_app/cubits/userInfoCubit/userInfo_cubit.dart';
+import 'package:budget_app/cubits/userInfoCubit/userInfo_state.dart';
+import 'package:budget_app/repositories/user_repository.dart';
 import 'package:budget_app/views/addCategoryMovement_view.dart';
 import 'package:budget_app/views/addClient_view.dart';
 import 'package:budget_app/views/addCustomerMovement_view.dart';
@@ -27,12 +30,14 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserRepository userRepository = context.read<UserRepository>();
+
     List<String> titles = [
       'Ana Sayfa',
       'Hareketler',
-      'Genel Bakis',
+      'Genel Bakiş',
       'Kategoriler',
-      'Kisiler',
+      'Kişiler',
     ];
 
     List<FaIcon> icons = const [
@@ -94,68 +99,130 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  Column(
                     children: [
-                      Container(
-                        height: 30,
-                        width: 30,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('assets/images/app_icon.png'),
-                          ),
-                        ),
-                      ),
-                      AutoSizeText(
-                        'HesApp',
-                        style: primaryMediumTextStyle,
-                        presetFontSizes: const [28, 22],
-                        maxLines: 1,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  BlocBuilder<NavigationCubit, NavigationState>(
-                    builder: (BuildContext context, NavigationState state) {
-                      if (state is NavigationLoading) {
-                        return const AppLoadingComp();
-                      }
-                      if (state is NavigationLoaded) {
-                        return Container(
-                          // color: Colors.blue,
-                          width: double.infinity,
-                          height: size.height * 0.5,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: List.generate(
-                              titles.length,
-                              (index) => Material(
-                                color: Colors.transparent,
-                                elevation: 0,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    color: state.onTapState[index]
-                                        ? secondaryDarkColor
-                                        : Colors.transparent,
-                                  ),
-                                  child: _NavBarLinks(
-                                    title: titles[index],
-                                    icon: icons[index],
-                                    index: index,
-                                  ),
-                                ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            height: 30,
+                            width: 30,
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/app_icon.png'),
                               ),
                             ),
                           ),
-                        );
-                      } else {
-                        return Container();
-                      }
-                    },
+                          AutoSizeText(
+                            'HesApp',
+                            style: primaryMediumTextStyle,
+                            presetFontSizes: const [28, 22],
+                            maxLines: 1,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      BlocBuilder<NavigationCubit, NavigationState>(
+                        builder: (BuildContext context, NavigationState state) {
+                          if (state is NavigationLoading) {
+                            return const AppLoadingComp();
+                          }
+                          if (state is NavigationLoaded) {
+                            return Container(
+                              // color: Colors.blue,
+                              width: double.infinity,
+                              height: size.height * 0.5,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: List.generate(
+                                  titles.length,
+                                  (index) => Material(
+                                    color: Colors.transparent,
+                                    elevation: 0,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        color: state.onTapState[index]
+                                            ? secondaryDarkColor
+                                            : Colors.transparent,
+                                      ),
+                                      child: _NavBarLinks(
+                                        title: titles[index],
+                                        icon: icons[index],
+                                        index: index,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          } else {
+                            return Container();
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                  BlocProvider(
+                    create: (context) => UserInfoCubit(
+                      userRepository: userRepository,
+                    ),
+                    child: BlocBuilder<UserInfoCubit, UserInfoState>(
+                      builder: (BuildContext context, UserInfoState state) {
+                        if (state is UserInfoLoadingState) {
+                          return AppLoadingComp();
+                        }
+                        if (state is UserInfoLoadedState) {
+                          return Container(
+                            height: 50,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: secondaryDarkColor,
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: Row(
+                                children: [
+                                  const CircleAvatar(
+                                    backgroundColor: secondaryLightColor,
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      AutoSizeText(
+                                        state.userModel.firstName,
+                                        style: primaryNormalTextStyle,
+                                        minFontSize: 14,
+                                      ),
+                                      AutoSizeText(
+                                        state.userModel.companyName,
+                                        style: primaryThinTextStyle,
+                                        minFontSize: 8,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        } else {
+                          return Container();
+                        }
+                      },
+                    ),
                   ),
                 ],
               ),

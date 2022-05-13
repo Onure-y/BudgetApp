@@ -42,10 +42,21 @@ class AddCustomerMovementCubit extends Cubit<AddCustomerMovementState> {
     ));
   }
 
-  Future createNewCustomerMovement() async {
+  Future createNewIncomeCustomerMovement() async {
     await userRepository.createMovementWithCustomer(
       movementText: movementTextController.text,
       movementValue: double.parse(movementValueTextController.text),
+      time: TimerPackage.getCurrentTime(),
+      customerModel: selectedCustomer,
+    );
+  }
+
+  Future createNewExpenseCustomerMovement() async {
+    double expenseMovementValue =
+        -1 * double.parse(movementValueTextController.text);
+    await userRepository.createMovementWithCustomer(
+      movementText: movementTextController.text,
+      movementValue: expenseMovementValue,
       time: TimerPackage.getCurrentTime(),
       customerModel: selectedCustomer,
     );
