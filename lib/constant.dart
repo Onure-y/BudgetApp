@@ -63,3 +63,12 @@ final TextStyle semiThinNormalTextStyle = GoogleFonts.poppins(
   color: secondaryTextColor,
   fontWeight: FontWeight.w200,
 );
+final TextStyle primaryThinTextStyle = GoogleFonts.poppins(
+  color: primaryTextColor,
+  fontWeight: FontWeight.w200,
+);
+
+final TextStyle boldTextStyle = GoogleFonts.poppins(
+  color: secondaryTextColor,
+  fontWeight: FontWeight.w800,
+);

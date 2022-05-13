@@ -104,7 +104,7 @@ class ClientsPage extends StatelessWidget {
                                                   height: 10,
                                                 ),
                                                 AutoSizeText(
-                                                  'Kisi Ekle',
+                                                  'Kişi Ekle',
                                                   style:
                                                       secondryNormalTextStyle,
                                                   minFontSize: 16,

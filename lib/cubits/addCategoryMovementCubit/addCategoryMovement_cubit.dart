@@ -48,10 +48,21 @@ class AddCategoryMovementCubit extends Cubit<AddCategoryMovementState> {
     ));
   }
 
-  Future createNewCategoryMovement() async {
+  Future createNewIncomeCategoryMovement() async {
     await userRepository.createMovementWithCategory(
       movementText: movementTextController.text,
       movementValue: double.parse(movementValueTextController.text),
+      time: TimerPackage.getCurrentTime(),
+      categoryModel: selectedCategory,
+    );
+  }
+
+  Future createNewExpenseCategoryMovement() async {
+    double expenseMovementValue =
+        -1 * double.parse(movementValueTextController.text);
+    await userRepository.createMovementWithCategory(
+      movementText: movementTextController.text,
+      movementValue: expenseMovementValue,
       time: TimerPackage.getCurrentTime(),
       categoryModel: selectedCategory,
     );

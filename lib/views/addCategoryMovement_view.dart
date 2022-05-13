@@ -162,11 +162,12 @@ class AddCategoryMovementPage extends StatelessWidget {
                               ElevatedButton(
                                 onPressed: () {
                                   thisContext
-                                      .read<AppCubit>()
-                                      .goToChooseMovementTypePage();
+                                      .read<AddCategoryMovementCubit>()
+                                      .createNewExpenseCategoryMovement();
+                                  context.read<AppCubit>().navigateToPage(0);
                                 },
                                 child: AutoSizeText(
-                                  'Iptal Et',
+                                  'Gider Hareketi Ekleyin',
                                   style: primaryNormalTextStyle,
                                   minFontSize: 18,
                                 ),
@@ -185,12 +186,12 @@ class AddCategoryMovementPage extends StatelessWidget {
                                 onPressed: () {
                                   thisContext
                                       .read<AddCategoryMovementCubit>()
-                                      .createNewCategoryMovement();
+                                      .createNewIncomeCategoryMovement();
                                   context.read<AppCubit>().navigateToPage(0);
                                   debugPrint(state.category.categoryName);
                                 },
                                 child: AutoSizeText(
-                                  'Hareket Ekle',
+                                  'Gelir Hareketi Ekleyin',
                                   style: primaryNormalTextStyle,
                                   minFontSize: 18,
                                 ),
@@ -431,12 +432,78 @@ class AddCategoryMovementPage extends StatelessWidget {
                             children: [
                               ElevatedButton(
                                 onPressed: () {
-                                  thisContext
-                                      .read<AppCubit>()
-                                      .goToChooseMovementTypePage();
+                                  showDialog(
+                                    context: thisContext,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        titlePadding: EdgeInsets.zero,
+                                        title: Container(
+                                          height: 100,
+                                          width: 250,
+                                          decoration: const BoxDecoration(
+                                            color: expenseColor,
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(10.0),
+                                              topRight: Radius.circular(10.0),
+                                            ),
+                                          ),
+                                          child: const Center(
+                                            child: Icon(
+                                              Icons.error_outline_rounded,
+                                              color: Colors.white,
+                                              size: 64,
+                                            ),
+                                          ),
+                                        ),
+                                        content: Container(
+                                          width: 200,
+                                          height: 200,
+                                          child: Center(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                AutoSizeText(
+                                                  'Hata',
+                                                  style: boldTextStyle,
+                                                  minFontSize: 24,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                AutoSizeText(
+                                                  'Lütfen Devam Etmeden Önce Bir Kategori Seçimi Yapınız',
+                                                  style:
+                                                      secondryNormalTextStyle,
+                                                  minFontSize: 14,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    primary: expenseColor,
+                                                  ),
+                                                  child: AutoSizeText(
+                                                    'Tamam',
+                                                    style:
+                                                        primaryNormalTextStyle,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
                                 },
                                 child: AutoSizeText(
-                                  'Iptal Et',
+                                  'Gider Hareketi Ekleyin',
                                   style: primaryNormalTextStyle,
                                   minFontSize: 18,
                                 ),
@@ -452,9 +519,79 @@ class AddCategoryMovementPage extends StatelessWidget {
                                 width: 50,
                               ),
                               ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  showDialog(
+                                    context: thisContext,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        titlePadding: EdgeInsets.zero,
+                                        title: Container(
+                                          height: 100,
+                                          width: 250,
+                                          decoration: const BoxDecoration(
+                                            color: expenseColor,
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(10.0),
+                                              topRight: Radius.circular(10.0),
+                                            ),
+                                          ),
+                                          child: const Center(
+                                            child: Icon(
+                                              Icons.error_outline_rounded,
+                                              color: Colors.white,
+                                              size: 64,
+                                            ),
+                                          ),
+                                        ),
+                                        content: Container(
+                                          width: 200,
+                                          height: 200,
+                                          child: Center(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                AutoSizeText(
+                                                  'Hata',
+                                                  style: boldTextStyle,
+                                                  minFontSize: 24,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                AutoSizeText(
+                                                  'Lütfen Devam Etmeden Önce Bir Kategori Seçimi Yapınız',
+                                                  style:
+                                                      secondryNormalTextStyle,
+                                                  minFontSize: 14,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    primary: expenseColor,
+                                                  ),
+                                                  child: AutoSizeText(
+                                                    'Tamam',
+                                                    style:
+                                                        primaryNormalTextStyle,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
                                 child: AutoSizeText(
-                                  'Hareket Ekle',
+                                  'Gelir Hareketi Ekleyin',
                                   style: primaryNormalTextStyle,
                                   minFontSize: 18,
                                 ),

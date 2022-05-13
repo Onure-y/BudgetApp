@@ -47,7 +47,7 @@ class OverviewPage extends StatelessWidget {
                 width: double.infinity,
                 color: lightColor,
                 child: AutoSizeText(
-                  'Genel Bakis',
+                  'Genel Bakiş',
                   minFontSize: 36,
                   style: secondryMediumTextStyle,
                 ),
@@ -145,7 +145,7 @@ class OverviewPage extends StatelessWidget {
                                                                     width: 10,
                                                                   ),
                                                                   AutoSizeText(
-                                                                    'Sirket Geliri',
+                                                                    'Şirket Geliri',
                                                                     minFontSize:
                                                                         16,
                                                                     style:
@@ -186,7 +186,7 @@ class OverviewPage extends StatelessWidget {
                                                                     width: 10,
                                                                   ),
                                                                   AutoSizeText(
-                                                                    'Sirket Giderleri',
+                                                                    'Şirket Giderleri',
                                                                     minFontSize:
                                                                         16,
                                                                     style:

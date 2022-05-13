@@ -84,6 +84,9 @@ class AllMovementsPage extends StatelessWidget {
                           child: Row(
                             children: [
                               const FaIcon(FontAwesomeIcons.search),
+                              const SizedBox(
+                                width: 10,
+                              ),
                               Flexible(
                                 child: Builder(builder: (newContext) {
                                   return TextFormField(
@@ -270,7 +273,7 @@ class AllMovementsPage extends StatelessWidget {
                                       })
                                   : Center(
                                       child: AutoSizeText(
-                                        'Malesef Istediginiz Hareketi Bulamadik',
+                                        'Malesef İstediginiz Hareketi Bulamadik',
                                         style: secondryMediumTextStyle,
                                         minFontSize: 24,
                                       ),
@@ -292,13 +295,13 @@ class AllMovementsPage extends StatelessWidget {
                                   Column(
                                     children: [
                                       AutoSizeText(
-                                        'Sirala',
+                                        'Sırala',
                                         style: secondryNormalTextStyle,
                                         minFontSize: 24,
                                       ),
                                       Builder(builder: (newContext) {
                                         return CustomDropdownButton2(
-                                          hint: 'Siralama Tipi',
+                                          hint: 'Sıralama Tipi',
                                           dropdownItems: sortList,
                                           value: selectedValue,
                                           onChanged: (sortName) {
@@ -338,7 +341,7 @@ class AllMovementsPage extends StatelessWidget {
                                       ),
                                       Builder(builder: (newContext) {
                                         return CustomDropdownButton2(
-                                          hint: 'Kategori Sec',
+                                          hint: 'Kategori Seç',
                                           dropdownItems: categories,
                                           value: selectedValue,
                                           onChanged: (categoryName) {
@@ -360,7 +363,7 @@ class AllMovementsPage extends StatelessWidget {
                                       ),
                                       Builder(builder: (newContext) {
                                         return CustomDropdownButton2(
-                                          hint: 'Kisi Sec',
+                                          hint: 'Kişi Seç',
                                           dropdownItems: customers,
                                           value: selectedValue2,
                                           onChanged: (customerName) {

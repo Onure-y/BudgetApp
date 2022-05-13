@@ -3,7 +3,9 @@ import 'package:budget_app/cubits/navigationCubit/navigation_cubit.dart';
 import 'package:budget_app/models/categoryModel/category_model.dart';
 import 'package:budget_app/models/customerModel/customer_model.dart';
 import 'package:budget_app/models/movementModel/movement_model.dart';
+import 'package:budget_app/models/settingsModel/setting_model.dart';
 import 'package:budget_app/models/userModel/user_model.dart';
+import 'package:budget_app/repositories/settings_repository.dart';
 import 'package:budget_app/repositories/user_repository.dart';
 import 'package:budget_app/views/home_view.dart';
 import 'package:budget_app/views/logic_view.dart';
@@ -21,19 +23,36 @@ Future<void> main() async {
   Hive.registerAdapter<MovementModel>(MovementModelAdapter());
 
   final userBox = await Hive.openBox<UserModel>('User');
+  final settingBox = await Hive.openBox<SettingsModel>('Settings');
 
-  runApp(MyApp(userBox: userBox));
+  runApp(MyApp(userBox: userBox, settingBox: settingBox));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key, required this.userBox}) : super(key: key);
+  const MyApp({
+    Key? key,
+    required this.userBox,
+    required this.settingBox,
+  }) : super(key: key);
 
   final Box<UserModel> userBox;
+  final Box<SettingsModel> settingBox;
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => UserRepository(userBox: userBox),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<UserRepository>(
+          create: (context) => UserRepository(
+            userBox: userBox,
+          ),
+        ),
+        RepositoryProvider<SettingsRepository>(
+          create: (context) => SettingsRepository(
+            settingsBox: settingBox,
+          ),
+        ),
+      ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider(

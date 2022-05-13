@@ -301,7 +301,7 @@ class MainPage extends StatelessWidget {
                                                                 .spaceBetween,
                                                         children: [
                                                           AutoSizeText(
-                                                            'Butce',
+                                                            'Bütçe',
                                                             minFontSize: 24,
                                                             style:
                                                                 secondryMediumTextStyle,

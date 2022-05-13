@@ -75,7 +75,7 @@ class UserCreatePage extends StatelessWidget {
                                 child: Container(
                                   padding: const EdgeInsets.all(10.0),
                                   child: AutoSizeText(
-                                    'Kullanici Olustur',
+                                    'Kullanıcı Oluştur',
                                     style: primaryNormalTextStyle,
                                     minFontSize: 32,
                                   ),
@@ -96,7 +96,7 @@ class UserCreatePage extends StatelessWidget {
                                         cursorColor: primaryDarkColor,
                                         style: primaryNormalTextStyle,
                                         decoration: InputDecoration(
-                                          labelText: 'Isim',
+                                          labelText: 'İsim',
                                           labelStyle: primaryNormalTextStyle,
                                           filled: true,
                                           fillColor: secondaryDarkColor,
@@ -122,7 +122,7 @@ class UserCreatePage extends StatelessWidget {
                                         cursorColor: primaryDarkColor,
                                         style: primaryNormalTextStyle,
                                         decoration: InputDecoration(
-                                          labelText: 'Soy Isim',
+                                          labelText: 'Soy İsim',
                                           labelStyle: primaryNormalTextStyle,
                                           filled: true,
                                           fillColor: secondaryDarkColor,
@@ -148,7 +148,7 @@ class UserCreatePage extends StatelessWidget {
                                         cursorColor: primaryDarkColor,
                                         style: primaryNormalTextStyle,
                                         decoration: InputDecoration(
-                                          labelText: 'Sirket ismi',
+                                          labelText: 'Şirket İsmi',
                                           labelStyle: primaryNormalTextStyle,
                                           filled: true,
                                           fillColor: secondaryDarkColor,
@@ -183,7 +183,7 @@ class UserCreatePage extends StatelessWidget {
                                       newContext.read<UserCubit>().createUser();
                                     },
                                     child: AutoSizeText(
-                                      'Giris Yap',
+                                      'Giriş Yap',
                                       style: primaryMediumTextStyle,
                                       minFontSize: 24,
                                     ),
