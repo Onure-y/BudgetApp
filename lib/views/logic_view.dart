@@ -1,6 +1,7 @@
 import 'package:budget_app/components/app_loading.dart';
 import 'package:budget_app/cubits/userCubit/user_cubit.dart';
 import 'package:budget_app/cubits/userCubit/user_state.dart';
+import 'package:budget_app/repositories/settings_repository.dart';
 import 'package:budget_app/repositories/user_repository.dart';
 import 'package:budget_app/views/home_view.dart';
 import 'package:budget_app/views/login_view.dart';
@@ -13,19 +14,26 @@ class LogicPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UserRepository userRepository = context.read<UserRepository>();
+    SettingsRepository settingsRepository = context.read<SettingsRepository>();
 
     return BlocProvider(
-      create: (context) => UserCubit(userRepository: userRepository),
+      create: (context) => UserCubit(
+        userRepository: userRepository,
+        settingsRepository: settingsRepository,
+      ),
       child: BlocBuilder<UserCubit, UserState>(
           builder: (BuildContext context, UserState state) {
         if (state is UserLoadingState) {
           return const AppLoadingComp();
         }
         if (state is UserExistState) {
-          return const HomePage();
+          return HomePage(context: context);
         }
         if (state is UserNotExistState) {
           return const UserCreatePage();
+        }
+        if (state is UserDemoTimeEnded) {
+          return Container();
         } else {
           return Container();
         }

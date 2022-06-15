@@ -20,16 +20,18 @@ import 'package:budget_app/views/clients_view.dart';
 import 'package:budget_app/views/incomeCategory_view.dart';
 import 'package:budget_app/views/main_view.dart';
 import 'package:budget_app/views/overview_view.dart';
+import 'package:budget_app/views/profile_view.dart';
 import 'package:budget_app/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key, required this.context}) : super(key: key);
+  final BuildContext context;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     UserRepository userRepository = context.read<UserRepository>();
 
     List<String> titles = [
@@ -38,6 +40,8 @@ class HomePage extends StatelessWidget {
       'Genel Bakiş',
       'Kategoriler',
       'Kişiler',
+      'Profil',
+      'Debug'
     ];
 
     List<FaIcon> icons = const [
@@ -59,6 +63,10 @@ class HomePage extends StatelessWidget {
       ),
       FaIcon(
         FontAwesomeIcons.users,
+        color: primaryTextColor,
+      ),
+      FaIcon(
+        FontAwesomeIcons.user,
         color: primaryTextColor,
       ),
       FaIcon(
@@ -272,6 +280,9 @@ class HomePage extends StatelessWidget {
               }
               if (state is AddCustomerMovementPageState) {
                 return const AddCustomerMovementPage();
+              }
+              if (state is ProfilePageState) {
+                return const ProfilePage();
               } else {
                 return const SizedBox(child: Center(child: Text('empty Page')));
               }

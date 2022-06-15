@@ -2,17 +2,24 @@ import 'package:bloc/bloc.dart';
 import 'package:budget_app/cubits/homePageCubit/homePage_state.dart';
 import 'package:budget_app/helper/timer_package.dart';
 import 'package:budget_app/models/movementModel/movement_model.dart';
+import 'package:budget_app/models/settingsModel/setting_model.dart';
 import 'package:budget_app/models/userModel/user_model.dart';
+import 'package:budget_app/repositories/settings_repository.dart';
 import 'package:budget_app/repositories/user_repository.dart';
 import 'package:budget_app/views/main_view.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 class HomePageCubit extends Cubit<HomePageState> {
-  HomePageCubit({required this.userRepository})
-      : super(HomePageInitialState()) {
+  HomePageCubit({
+    required this.userRepository,
+    required this.settingsRepository,
+  }) : super(HomePageInitialState()) {
     emit(HomePageLoadingState());
     initState();
   }
+
+  final SettingsRepository settingsRepository;
 
   late UserModel userModel;
   final UserRepository userRepository;
@@ -175,6 +182,29 @@ class HomePageCubit extends Cubit<HomePageState> {
               : monthlyExpenseMovements.add(emptyChartData);
         }
       }
+    }
+  }
+
+  Future checkDemoState() async {
+    SettingsModel settingsData = await settingsRepository.getDemoData();
+
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      bool isDemoTimeEnded = checkEstimatedTime(
+        settingsData.demoEndTime,
+        TimerPackage.getCurrentTime(),
+      );
+      debugPrint(timer.tick.toString());
+      if (isDemoTimeEnded) {
+        debugPrint('Demo time ended');
+      }
+    });
+  }
+
+  bool checkEstimatedTime(int demoEndTime, int currentTime) {
+    if (demoEndTime > currentTime) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

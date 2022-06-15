@@ -1,5 +1,6 @@
 import 'package:budget_app/helper/timer_package.dart';
 import 'package:budget_app/models/settingsModel/setting_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class SettingsRepository {
@@ -8,37 +9,37 @@ class SettingsRepository {
   String settingsDataKey = 'settings';
 
   SettingsModel emptySettingsModel = SettingsModel(
-    demoEndTime: 0,
     demoStartTime: 0,
+    demoEndTime: 0,
     isPremium: false,
   );
 
-  Future<SettingsModel> getSettingsModel() async {
-    SettingsModel settingsData =
-        settingsBox.get(settingsDataKey) ?? emptySettingsModel;
-    SettingsModel settingsModel = checkIfItsEmpty(settingsData);
-    return settingsModel;
-  }
+  Future createEstimatedTime() async {
+    DateTime currentTime =
+        DateTime.fromMillisecondsSinceEpoch(TimerPackage.getCurrentTime());
+    DateTime demoEndTime = currentTime.add(const Duration(seconds: 20));
 
-  SettingsModel checkIfItsEmpty(SettingsModel settingsData) {
-    if (settingsData.demoStartTime == 0) {
-      SettingsModel createdSettingsData = createDemoTime();
-      return createdSettingsData;
-    } else {
-      return settingsData;
-    }
-  }
-
-  SettingsModel createDemoTime() {
-    int demoStartTime = TimerPackage.getCurrentTime();
-    int demoEndTime = TimerPackage.getDemoTime(demoStartTime);
+    int demoEndTimestamp = demoEndTime.millisecondsSinceEpoch;
     bool isPremium = false;
-    SettingsModel createdSettingsData = SettingsModel(
-      demoStartTime: demoStartTime,
-      demoEndTime: demoEndTime,
+
+    debugPrint('a $demoEndTimestamp');
+
+    SettingsModel settingsModel = SettingsModel(
+      demoStartTime: currentTime.millisecondsSinceEpoch,
+      demoEndTime: demoEndTimestamp,
       isPremium: isPremium,
     );
-    settingsBox.put(settingsDataKey, createdSettingsData);
-    return createdSettingsData;
+    settingsBox.put(settingsDataKey, settingsModel);
+  }
+
+  Future<SettingsModel> getDemoData() async {
+    SettingsModel demoData =
+        await settingsBox.get(settingsDataKey) ?? emptySettingsModel;
+    debugPrint(demoData.demoStartTime.toString());
+    return demoData;
+  }
+
+  Future resetData() async {
+    settingsBox.put(settingsDataKey, emptySettingsModel);
   }
 }

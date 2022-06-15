@@ -18,6 +18,11 @@ class UserExistState extends UserState {
   List<Object?> get props => [];
 }
 
+class UserDemoTimeEnded extends UserState {
+  @override
+  List<Object?> get props => [];
+}
+
 class UserNotExistState extends UserState {
   UserNotExistState(
       {required this.firstNameTextController,

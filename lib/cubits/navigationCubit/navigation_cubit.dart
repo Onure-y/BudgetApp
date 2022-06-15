@@ -6,10 +6,10 @@ class NavigationCubit extends Cubit<NavigationState> {
     emit(NavigationLoaded(onTapState));
   }
 
-  List<bool> onTapState = [true, false, false, false, false, false];
+  List<bool> onTapState = [true, false, false, false, false, false, false];
 
   void changePage(index) {
-    onTapState = [false, false, false, false, false, false];
+    onTapState = [false, false, false, false, false, false, false];
     onTapState[index] = true;
     emit(NavigationLoaded(onTapState));
   }

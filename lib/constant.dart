@@ -8,6 +8,8 @@ const Color secondaryLightColor = Color(0xffdbd8e3);
 const Color lightColor = Color(0xffF0F1F6);
 const Color buttonColor = Color(0xffE5E5E5);
 const Color backgroundColor = Color(0xfffafafa);
+const Color premiumOnColor = Color(0xff028254);
+const Color premiumOffColor = Color(0xffE31F13);
 
 const Color bluredBackgroundColor = Color.fromRGBO(42, 36, 56, .9);
 
@@ -72,3 +74,23 @@ final TextStyle boldTextStyle = GoogleFonts.poppins(
   color: secondaryTextColor,
   fontWeight: FontWeight.w800,
 );
+
+TextStyle premiumColor(bool isPremium) {
+  if (isPremium) {
+    return GoogleFonts.poppins(
+      color: premiumOnColor,
+      fontWeight: FontWeight.w800,
+    );
+  }
+  if (!isPremium) {
+    return GoogleFonts.poppins(
+      color: premiumOffColor,
+      fontWeight: FontWeight.w800,
+    );
+  } else {
+    return GoogleFonts.poppins(
+      color: premiumOnColor,
+      fontWeight: FontWeight.w800,
+    );
+  }
+}

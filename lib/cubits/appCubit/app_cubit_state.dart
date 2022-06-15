@@ -90,3 +90,8 @@ class SettingsPageState extends AppState {
   @override
   List<Object?> get props => [];
 }
+
+class ProfilePageState extends AppState {
+  @override
+  List<Object?> get props => [];
+}
