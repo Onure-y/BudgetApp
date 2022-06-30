@@ -14,7 +14,7 @@ class UserCubit extends Cubit<UserState> {
     required this.settingsRepository,
   }) : super(UserInitialState()) {
     emit(UserLoadingState());
-    // checkDemoState();
+    checkDemoState();
     checkUserState();
   }
 
@@ -50,7 +50,7 @@ class UserCubit extends Cubit<UserState> {
       );
       if (isDemoTimeEnded) {
         debugPrint('Demo time ended');
-        // emit(UserDemoTimeEnded());
+        emit(UserDemoTimeEnded());
       }
     });
   }
@@ -59,8 +59,10 @@ class UserCubit extends Cubit<UserState> {
     debugPrint('demoEndTime == $demoEndTime');
     debugPrint('currentTime == $currentTime');
     if (demoEndTime < currentTime && demoEndTime != 0) {
+      debugPrint('aaaa');
       return true;
     } else {
+      debugPrint('bbbb');
       return false;
     }
   }
@@ -72,7 +74,6 @@ class UserCubit extends Cubit<UserState> {
       companyName: companyNameTextController.text,
     );
 
-    int currentTime = TimerPackage.getCurrentTime();
     await settingsRepository.createEstimatedTime();
     debugPrint('Demo Estimated Time created');
 
@@ -88,5 +89,10 @@ class UserCubit extends Cubit<UserState> {
         companyNameTextController: companyNameTextController,
       ),
     );
+  }
+
+  Future setUserPremium() async {
+    await settingsRepository.setUserPremium();
+    emit(UserExistState());
   }
 }

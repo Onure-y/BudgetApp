@@ -17,7 +17,7 @@ class SettingsRepository {
   Future createEstimatedTime() async {
     DateTime currentTime =
         DateTime.fromMillisecondsSinceEpoch(TimerPackage.getCurrentTime());
-    DateTime demoEndTime = currentTime.add(const Duration(seconds: 20));
+    DateTime demoEndTime = currentTime.add(const Duration(seconds: 10));
 
     int demoEndTimestamp = demoEndTime.millisecondsSinceEpoch;
     bool isPremium = false;
@@ -37,6 +37,15 @@ class SettingsRepository {
         await settingsBox.get(settingsDataKey) ?? emptySettingsModel;
     debugPrint(demoData.demoStartTime.toString());
     return demoData;
+  }
+
+  Future setUserPremium() async {
+    SettingsModel settingsModel = SettingsModel(
+      demoStartTime: 0,
+      demoEndTime: 0,
+      isPremium: true,
+    );
+    settingsBox.put(settingsDataKey, settingsModel);
   }
 
   Future resetData() async {

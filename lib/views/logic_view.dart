@@ -5,6 +5,7 @@ import 'package:budget_app/repositories/settings_repository.dart';
 import 'package:budget_app/repositories/user_repository.dart';
 import 'package:budget_app/views/home_view.dart';
 import 'package:budget_app/views/login_view.dart';
+import 'package:budget_app/views/userDemoTimeEnded_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,7 +34,7 @@ class LogicPage extends StatelessWidget {
           return const UserCreatePage();
         }
         if (state is UserDemoTimeEnded) {
-          return Container();
+          return const UserDemoTimeEndPage();
         } else {
           return Container();
         }
