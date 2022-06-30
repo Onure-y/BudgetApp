@@ -10,6 +10,7 @@ import 'package:budget_app/helper/color_converter.dart';
 import 'package:budget_app/helper/icon_package.dart';
 import 'package:budget_app/models/movementModel/movement_model.dart';
 import 'package:budget_app/models/userModel/user_model.dart';
+import 'package:budget_app/repositories/settings_repository.dart';
 import 'package:budget_app/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,9 +24,13 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UserRepository userRepository = context.read<UserRepository>();
+    SettingsRepository settingsRepository = context.read<SettingsRepository>();
     TooltipBehavior tooltipBehavior = TooltipBehavior(enable: true);
     return BlocProvider(
-      create: (context) => HomePageCubit(userRepository: userRepository),
+      create: (context) => HomePageCubit(
+        userRepository: userRepository,
+        settingsRepository: settingsRepository,
+      ),
       child: BlocBuilder<HomePageCubit, HomePageState>(
         builder: (BuildContext context, HomePageState state) {
           if (state is HomePageLoadedState) {

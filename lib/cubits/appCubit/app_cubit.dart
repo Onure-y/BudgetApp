@@ -27,8 +27,10 @@ class AppCubit extends Cubit<AppState> {
       emit(IncomeCategoryPageState());
     } else if (index == 4) {
       emit(ClientPageState());
-    } else if (index == 5) {
+    } else if (index == 6) {
       emit(SettingsPageState());
+    } else if (index == 5) {
+      emit(ProfilePageState());
     } else {
       emit(AppLoading());
     }

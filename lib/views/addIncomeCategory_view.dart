@@ -254,9 +254,11 @@ class AddIncomeCategoryPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                context.read<AppCubit>().goBacktoCategoryPage();
+                              },
                               child: AutoSizeText(
-                                'Gider Hareketi Ekleyin',
+                                'İptal',
                                 style: primaryNormalTextStyle,
                                 minFontSize: 18,
                               ),
@@ -271,21 +273,30 @@ class AddIncomeCategoryPage extends StatelessWidget {
                             const SizedBox(
                               width: 50,
                             ),
-                            ElevatedButton(
-                              onPressed: () {},
-                              child: AutoSizeText(
-                                'Gelir Hareketi Ekleyin',
-                                style: primaryNormalTextStyle,
-                                minFontSize: 18,
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                primary: incomeColor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
+                            Builder(builder: (newContext) {
+                              return ElevatedButton(
+                                onPressed: () {
+                                  newContext
+                                      .read<AddCategoryCubit>()
+                                      .addIncomeCategoryInToDatabase();
+                                  context
+                                      .read<AppCubit>()
+                                      .goBacktoCategoryPage();
+                                },
+                                child: AutoSizeText(
+                                  'Kategori Ekle',
+                                  style: primaryNormalTextStyle,
+                                  minFontSize: 18,
                                 ),
-                                minimumSize: const Size(150, 50),
-                              ),
-                            ),
+                                style: ElevatedButton.styleFrom(
+                                  primary: incomeColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
+                                  minimumSize: const Size(150, 50),
+                                ),
+                              );
+                            }),
                           ],
                         ),
                       ],

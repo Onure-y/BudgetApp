@@ -2,13 +2,13 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:budget_app/constant.dart';
 import 'package:budget_app/cubits/settingsCubit/settings_cubit.dart';
 import 'package:budget_app/cubits/settingsCubit/settings_state.dart';
+import 'package:budget_app/cubits/userCubit/user_cubit.dart';
 import 'package:budget_app/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     UserRepository userRepository = context.read<UserRepository>();
@@ -80,6 +80,8 @@ class SettingsPage extends StatelessWidget {
                                       newContext
                                           .read<SettingsCubit>()
                                           .deleteUser();
+
+                                      context.read<UserCubit>().signOut();
                                     },
                                     child: const Text('kullanici veri sifirla'),
                                   );
