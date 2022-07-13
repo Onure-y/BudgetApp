@@ -42,7 +42,6 @@ class HomePage extends StatelessWidget {
       'Kategoriler',
       'Kişiler',
       'Profil',
-      'Debug'
     ];
 
     List<FaIcon> icons = const [

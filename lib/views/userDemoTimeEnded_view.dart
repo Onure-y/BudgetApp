@@ -3,13 +3,10 @@ import 'package:budget_app/components/app_loading.dart';
 import 'package:budget_app/constant.dart';
 import 'package:budget_app/cubits/demoEndCubit/demoEnd_cubit.dart';
 import 'package:budget_app/cubits/demoEndCubit/demoEnd_state.dart';
-import 'package:budget_app/cubits/profileCubit/profile_cubit.dart';
 import 'package:budget_app/cubits/userCubit/user_cubit.dart';
 import 'package:budget_app/repositories/settings_repository.dart';
 import 'package:budget_app/repositories/user_repository.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -76,26 +73,6 @@ class UserDemoTimeEndPage extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(
-                                    width: 50,
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      AutoSizeText(
-                                        'o',
-                                        style: secondryMediumTextStyle,
-                                        minFontSize: 36,
-                                      ),
-                                      AutoSizeText(
-                                        'a',
-                                        style: semiThinNormalTextStyle,
-                                        minFontSize: 24,
-                                      ),
-                                    ],
-                                  )
                                 ],
                               ),
                             ),
@@ -106,35 +83,67 @@ class UserDemoTimeEndPage extends StatelessWidget {
                   ),
                   Flexible(
                       child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Container(
-                        width: 300,
-                        child: TextFormField(
-                          controller: state.demoTextField,
-                          cursorColor: Colors.grey,
-                          decoration: InputDecoration(
-                            prefixIcon:
-                                const Icon(Icons.lock, color: Colors.black),
-                            hintText: "*********",
-                            hintStyle: secondryMediumTextStyle,
-                            fillColor: const Color(0xffF0F1F6),
-                            filled: true,
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color(0xffDDDDDD), width: 4),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color(0xffDDDDDD), width: 4),
-                              borderRadius: BorderRadius.circular(20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 300,
+                            child: TextFormField(
+                              controller: state.demoTextField,
+                              cursorColor: Colors.grey,
+                              decoration: InputDecoration(
+                                prefixIcon:
+                                    const Icon(Icons.lock, color: Colors.black),
+                                hintText: "*********",
+                                hintStyle: secondryMediumTextStyle,
+                                fillColor: const Color(0xffF0F1F6),
+                                filled: true,
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffDDDDDD), width: 4),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffDDDDDD), width: 4),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                          state.isDemoCodeCheckedTrue
+                              ? Container(
+                                  height: 50,
+                                  width: 50,
+                                  child: const Center(
+                                    child: FaIcon(
+                                      FontAwesomeIcons.check,
+                                      color: Colors.green,
+                                      size: 36,
+                                    ),
+                                  ),
+                                )
+                              : Container(
+                                  height: 50,
+                                  width: 50,
+                                  child: const Center(
+                                    child: FaIcon(
+                                      FontAwesomeIcons.exclamation,
+                                      color: Colors.red,
+                                      size: 36,
+                                    ),
+                                  ),
+                                ),
+                        ],
                       ),
-                      const SizedBox(
-                        height: 100,
-                      ),
+                      state.isDemoCodeCheckedTrue
+                          ? Text(
+                              'Doğrulama başarılı lütfen uygulamayı yeniden başlatınız',
+                              style: TextStyle(fontSize: 24),
+                            )
+                          : Container(),
                       BlocProvider(
                         create: (context) => UserCubit(
                             settingsRepository: settingsRepository,
@@ -143,6 +152,7 @@ class UserDemoTimeEndPage extends StatelessWidget {
                           return ElevatedButton(
                             onPressed: () {
                               newContext.read<UserCubit>().setUserPremium();
+                              context.read<DemoEndTimeCubit>().checkDemoCode();
                             },
                             child: AutoSizeText(
                               'Doğrula',
