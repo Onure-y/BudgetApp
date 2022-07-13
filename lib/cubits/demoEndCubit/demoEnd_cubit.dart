@@ -10,12 +10,29 @@ class DemoEndTimeCubit extends Cubit<DemoEndPageState> {
     required this.settingsRepository,
   }) : super(DemoEndPageInitalState()) {
     emit(DemoEndPageLoadingState());
-    emit(DemoEndPageLoadedState(demoTextField: demoTextField));
+    emit(DemoEndPageLoadedState(
+      demoTextField: demoTextField,
+      isDemoCodeCheckedTrue: isDemoCodeCheckedTrue,
+    ));
   }
 
   final UserRepository userRepository;
   final SettingsRepository settingsRepository;
   final TextEditingController demoTextField = TextEditingController();
+  bool isDemoCodeCheckedTrue = false;
 
-  final String DEMO_CODE = "132456";
+  // ignore: non_constant_identifier_names
+  final String DEMO_CODE = "OEY4255";
+
+  void checkDemoCode() {
+    if (demoTextField.text == DEMO_CODE) {
+      isDemoCodeCheckedTrue = true;
+    } else {
+      isDemoCodeCheckedTrue = false;
+    }
+    emit(DemoEndPageLoadedState(
+      demoTextField: demoTextField,
+      isDemoCodeCheckedTrue: isDemoCodeCheckedTrue,
+    ));
+  }
 }

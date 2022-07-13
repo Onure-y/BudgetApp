@@ -101,13 +101,22 @@ class ProfilePage extends StatelessWidget {
                                         const SizedBox(
                                           width: 30,
                                         ),
-                                        AutoSizeText('Kalan Süre - ',
-                                            minFontSize: 16,
-                                            style: semiThinNormalTextStyle),
-                                        AutoSizeText(
-                                            state.remainingDay.toString(),
-                                            minFontSize: 18,
-                                            style: secondryMediumTextStyle),
+                                        state.isPremium
+                                            ? Container()
+                                            : Row(
+                                                children: [
+                                                  AutoSizeText('Kalan Süre - ',
+                                                      minFontSize: 16,
+                                                      style:
+                                                          semiThinNormalTextStyle),
+                                                  AutoSizeText(
+                                                      state.remainingDay
+                                                          .toString(),
+                                                      minFontSize: 18,
+                                                      style:
+                                                          secondryMediumTextStyle),
+                                                ],
+                                              ),
                                       ],
                                     )
                                   ],

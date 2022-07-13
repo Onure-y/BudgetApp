@@ -14,8 +14,12 @@ class DemoEndPageLoadingState extends DemoEndPageState {
 }
 
 class DemoEndPageLoadedState extends DemoEndPageState {
-  DemoEndPageLoadedState({required this.demoTextField});
+  DemoEndPageLoadedState({
+    required this.demoTextField,
+    required this.isDemoCodeCheckedTrue,
+  });
   final TextEditingController demoTextField;
+  final bool isDemoCodeCheckedTrue;
   @override
-  List<Object?> get props => [demoTextField];
+  List<Object?> get props => [demoTextField, isDemoCodeCheckedTrue];
 }
