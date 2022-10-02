@@ -42,6 +42,7 @@ class HomePage extends StatelessWidget {
       'Kategoriler',
       'Kişiler',
       'Profil',
+      'Ayarlar'
     ];
 
     List<FaIcon> icons = const [
@@ -66,7 +67,7 @@ class HomePage extends StatelessWidget {
         color: primaryTextColor,
       ),
       FaIcon(
-        FontAwesomeIcons.user,
+        FontAwesomeIcons.solidUser,
         color: primaryTextColor,
       ),
       FaIcon(
