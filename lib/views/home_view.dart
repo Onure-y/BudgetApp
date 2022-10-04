@@ -42,6 +42,7 @@ class HomePage extends StatelessWidget {
       'Kategoriler',
       'Kişiler',
       'Profil',
+      'Ayarlar'
     ];
 
     List<FaIcon> icons = const [
@@ -66,7 +67,7 @@ class HomePage extends StatelessWidget {
         color: primaryTextColor,
       ),
       FaIcon(
-        FontAwesomeIcons.user,
+        FontAwesomeIcons.solidUser,
         color: primaryTextColor,
       ),
       FaIcon(
@@ -211,9 +212,9 @@ class HomePage extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       AutoSizeText(
-                                        state.userModel.firstName,
+                                        "${state.userModel.fullName.split(" ")[0]} ${state.userModel.fullName.split(" ")[1]}",
                                         style: primaryNormalTextStyle,
-                                        minFontSize: 14,
+                                        minFontSize: 8,
                                       ),
                                       AutoSizeText(
                                         state.userModel.companyName,

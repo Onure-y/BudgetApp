@@ -36,7 +36,7 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   Future getUserData() async {
     UserModel userModel = await userRepository.getUserData();
-    userName = userModel.firstName + ' ' + userModel.lastName;
+    userName = userModel.fullName;
     companyName = userModel.companyName;
   }
 

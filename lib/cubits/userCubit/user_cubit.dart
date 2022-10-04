@@ -19,7 +19,7 @@ class UserCubit extends Cubit<UserState> {
   }
 
   final TextEditingController firstNameTextController = TextEditingController();
-  final TextEditingController lastNameTextController = TextEditingController();
+  final TextEditingController emailTextController = TextEditingController();
   final TextEditingController companyNameTextController =
       TextEditingController();
 
@@ -28,11 +28,11 @@ class UserCubit extends Cubit<UserState> {
 
   Future checkUserState() async {
     UserModel userData = await userRepository.getUserData();
-    if (userData.firstName == '') {
+    if (userData.fullName == '') {
       emit(
         UserNotExistState(
           firstNameTextController: firstNameTextController,
-          lastNameTextController: lastNameTextController,
+          emailTextController: emailTextController,
           companyNameTextController: companyNameTextController,
         ),
       );
@@ -59,10 +59,8 @@ class UserCubit extends Cubit<UserState> {
     debugPrint('demoEndTime == $demoEndTime');
     debugPrint('currentTime == $currentTime');
     if (demoEndTime < currentTime && demoEndTime != 0) {
-      debugPrint('aaaa');
       return true;
     } else {
-      debugPrint('bbbb');
       return false;
     }
   }
@@ -70,7 +68,7 @@ class UserCubit extends Cubit<UserState> {
   Future createUser() async {
     await userRepository.createUser(
       firstName: firstNameTextController.text,
-      lastNme: lastNameTextController.text,
+      lastNme: emailTextController.text,
       companyName: companyNameTextController.text,
     );
 
@@ -85,7 +83,7 @@ class UserCubit extends Cubit<UserState> {
     emit(
       UserNotExistState(
         firstNameTextController: firstNameTextController,
-        lastNameTextController: lastNameTextController,
+        emailTextController: emailTextController,
         companyNameTextController: companyNameTextController,
       ),
     );

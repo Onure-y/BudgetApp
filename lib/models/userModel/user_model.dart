@@ -8,10 +8,10 @@ part 'user_model.g.dart';
 @HiveType(typeId: 0)
 class UserModel extends HiveObject {
   @HiveField(0)
-  String firstName;
+  String fullName;
 
   @HiveField(1)
-  String lastName;
+  String email;
 
   @HiveField(2)
   String companyName;
@@ -26,8 +26,8 @@ class UserModel extends HiveObject {
   List<MovementModel> allMovements;
 
   UserModel({
-    required this.firstName,
-    required this.lastName,
+    required this.fullName,
+    required this.email,
     required this.companyName,
     required this.allCategories,
     required this.allCustomers,

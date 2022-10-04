@@ -17,7 +17,7 @@ class SettingsRepository {
   Future createEstimatedTime() async {
     DateTime currentTime =
         DateTime.fromMillisecondsSinceEpoch(TimerPackage.getCurrentTime());
-    DateTime demoEndTime = currentTime.add(const Duration(seconds: 10));
+    DateTime demoEndTime = currentTime.add(const Duration(days: 5));
 
     int demoEndTimestamp = demoEndTime.millisecondsSinceEpoch;
     bool isPremium = false;

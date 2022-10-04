@@ -96,7 +96,7 @@ class UserCreatePage extends StatelessWidget {
                                         cursorColor: primaryDarkColor,
                                         style: primaryNormalTextStyle,
                                         decoration: InputDecoration(
-                                          labelText: 'İsim',
+                                          labelText: 'İsim-Soyisim',
                                           labelStyle: primaryNormalTextStyle,
                                           filled: true,
                                           fillColor: secondaryDarkColor,
@@ -117,12 +117,11 @@ class UserCreatePage extends StatelessWidget {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 40.0),
                                       child: TextFormField(
-                                        controller:
-                                            state.lastNameTextController,
+                                        controller: state.emailTextController,
                                         cursorColor: primaryDarkColor,
                                         style: primaryNormalTextStyle,
                                         decoration: InputDecoration(
-                                          labelText: 'Soy İsim',
+                                          labelText: 'Email',
                                           labelStyle: primaryNormalTextStyle,
                                           filled: true,
                                           fillColor: secondaryDarkColor,
@@ -176,7 +175,7 @@ class UserCreatePage extends StatelessWidget {
                                       debugPrint(
                                           state.firstNameTextController.text);
                                       debugPrint(
-                                          state.lastNameTextController.text);
+                                          state.emailTextController.text);
                                       debugPrint(
                                           state.companyNameTextController.text);
 
