@@ -114,10 +114,10 @@ class SettingsPage extends StatelessWidget {
                               );
                             }),
                             const SizedBox(height: 20),
-                            state.userModel.firstName == ''
+                            state.userModel.fullName == ''
                                 ? Text('Isim yok')
                                 : Text(
-                                    state.userModel.firstName,
+                                    state.userModel.fullName,
                                   ),
                             /*    const SizedBox(height: 200),
                             state.userModel.firstName == ''

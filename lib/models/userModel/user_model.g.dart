@@ -17,8 +17,8 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return UserModel(
-      firstName: fields[0] as String,
-      lastName: fields[1] as String,
+      fullName: fields[0] as String,
+      email: fields[1] as String,
       companyName: fields[2] as String,
       allCategories: (fields[3] as List).cast<CategoryModel>(),
       allCustomers: (fields[4] as List).cast<CustomerModel>(),
@@ -31,9 +31,9 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
     writer
       ..writeByte(6)
       ..writeByte(0)
-      ..write(obj.firstName)
+      ..write(obj.fullName)
       ..writeByte(1)
-      ..write(obj.lastName)
+      ..write(obj.email)
       ..writeByte(2)
       ..write(obj.companyName)
       ..writeByte(3)

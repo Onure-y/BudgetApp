@@ -110,7 +110,7 @@ class ProfilePage extends StatelessWidget {
                                                       style:
                                                           semiThinNormalTextStyle),
                                                   AutoSizeText(
-                                                      "${state.remainingDay.toString()} Kalan Gün",
+                                                      "${state.remainingDay.toString()} Gün",
                                                       minFontSize: 18,
                                                       style:
                                                           secondryMediumTextStyle),

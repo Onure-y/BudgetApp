@@ -26,11 +26,11 @@ class UserDemoTimeEnded extends UserState {
 class UserNotExistState extends UserState {
   UserNotExistState(
       {required this.firstNameTextController,
-      required this.lastNameTextController,
+      required this.emailTextController,
       required this.companyNameTextController});
 
   final TextEditingController firstNameTextController;
-  final TextEditingController lastNameTextController;
+  final TextEditingController emailTextController;
   final TextEditingController companyNameTextController;
   @override
   List<Object?> get props => [];

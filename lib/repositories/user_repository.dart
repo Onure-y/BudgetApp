@@ -14,8 +14,8 @@ class UserRepository {
   String userDataKey = 'userData';
 
   UserModel emptyUserData = UserModel(
-    firstName: '',
-    lastName: '',
+    fullName: '',
+    email: '',
     companyName: '',
     allCategories: [],
     allCustomers: [],
@@ -97,8 +97,8 @@ class UserRepository {
     required String companyName,
   }) async {
     UserModel createdUserData = UserModel(
-      firstName: firstName,
-      lastName: lastNme,
+      fullName: firstName,
+      email: lastNme,
       companyName: companyName,
       allCategories: [],
       allCustomers: [],

@@ -139,7 +139,7 @@ class UserDemoTimeEndPage extends StatelessWidget {
                         ],
                       ),
                       state.isDemoCodeCheckedTrue
-                          ? Text(
+                          ? const Text(
                               'Doğrulama başarılı lütfen uygulamayı yeniden başlatınız',
                               style: TextStyle(fontSize: 24),
                             )
@@ -151,7 +151,6 @@ class UserDemoTimeEndPage extends StatelessWidget {
                         child: Builder(builder: (newContext) {
                           return ElevatedButton(
                             onPressed: () async {
-                              newContext.read<UserCubit>().setUserPremium();
                               final response = await context
                                   .read<DemoEndTimeCubit>()
                                   .checkDemoCode();
