@@ -88,21 +88,9 @@ class ProfilePage extends StatelessWidget {
                                     Row(
                                       children: [
                                         state.isPremium
-                                            ? AutoSizeText(
-                                                'Premium',
+                                            ? AutoSizeText('Premium',
                                                 style: premiumColor(true),
-                                                minFontSize: 16,
-                                              )
-                                            : AutoSizeText(
-                                                'Premium',
-                                                style: premiumColor(false),
-                                                minFontSize: 16,
-                                              ),
-                                        const SizedBox(
-                                          width: 30,
-                                        ),
-                                        state.isPremium
-                                            ? Container()
+                                                minFontSize: 16)
                                             : Row(
                                                 children: [
                                                   AutoSizeText('Kalan Süre - ',
@@ -116,6 +104,35 @@ class ProfilePage extends StatelessWidget {
                                                           secondryMediumTextStyle),
                                                 ],
                                               ),
+                                        // state.isPremium
+                                        //     ? AutoSizeText(
+                                        //         'Premium',
+                                        //         style: premiumColor(true),
+                                        //         minFontSize: 16,
+                                        //       )
+                                        //     : AutoSizeText(
+                                        //         'Premium',
+                                        //         style: premiumColor(false),
+                                        //         minFontSize: 16,
+                                        //       ),
+                                        // const SizedBox(
+                                        //   width: 30,
+                                        // ),
+                                        // state.isPremium
+                                        //     ? Container()
+                                        //     : Row(
+                                        //         children: [
+                                        //           AutoSizeText('Kalan Süre - ',
+                                        //               minFontSize: 16,
+                                        //               style:
+                                        //                   semiThinNormalTextStyle),
+                                        //           AutoSizeText(
+                                        //               "${state.remainingDay.toString()} Gün",
+                                        //               minFontSize: 18,
+                                        //               style:
+                                        //                   secondryMediumTextStyle),
+                                        // ],
+                                        // ),
                                       ],
                                     )
                                   ],

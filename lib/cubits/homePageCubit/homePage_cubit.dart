@@ -109,8 +109,13 @@ class HomePageCubit extends Cubit<HomePageState> {
   }
 
   Future calculateDegrees() async {
-    double allValue = incomeValue + expenseValue.abs();
-    incomeDeg = (incomeValue / allValue) * 360;
+    debugPrint(incomeValue.toString());
+    if (incomeValue == 0) {
+      incomeDeg = 0;
+    } else {
+      double allValue = incomeValue + expenseValue.abs();
+      incomeDeg = (incomeValue / allValue) * 360;
+    }
   }
 
   Future getCurrentMonthIncomeList() async {

@@ -112,7 +112,10 @@ class MainPage extends StatelessWidget {
                                                         foregroundPainter:
                                                             MyPainter(
                                                           state.incomeDeg,
-                                                          incomeColor,
+                                                          state.incomeDeg == 0
+                                                              ? Colors
+                                                                  .transparent
+                                                              : incomeColor,
                                                           boxConstraints
                                                                       .maxHeight <
                                                                   300

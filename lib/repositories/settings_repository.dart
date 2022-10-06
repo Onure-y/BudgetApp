@@ -17,7 +17,9 @@ class SettingsRepository {
   Future createEstimatedTime() async {
     DateTime currentTime =
         DateTime.fromMillisecondsSinceEpoch(TimerPackage.getCurrentTime());
-    DateTime demoEndTime = currentTime.add(const Duration(days: 5));
+    // We can modify lasted demo day with this code
+    // if we want to give user 10 days of demo session we can specify Duration(days: $daysWeWantedToAdd)
+    DateTime demoEndTime = currentTime.add(const Duration(days: 10));
 
     int demoEndTimestamp = demoEndTime.millisecondsSinceEpoch;
     bool isPremium = false;

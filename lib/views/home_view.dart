@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
       'Kategoriler',
       'Kişiler',
       'Profil',
-      'Ayarlar'
+      // 'Ayarlar'
     ];
 
     List<FaIcon> icons = const [
@@ -212,7 +212,7 @@ class HomePage extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       AutoSizeText(
-                                        "${state.userModel.fullName.split(" ")[0]} ${state.userModel.fullName.split(" ")[1]}",
+                                        state.userModel.fullName.split(" ")[0],
                                         style: primaryNormalTextStyle,
                                         minFontSize: 8,
                                       ),
